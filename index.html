@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTOTO Insight Engine</title>
+<style>
+:root{
+  --bg:#0C1018;--s1:#131923;--s2:#1A2336;--s3:#1F2A40;--s4:#253048;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#E6E8F0;--body:#9AA5BD;--muted:#6878A0;--faint:#344060;
+  --blue:#6B8EF0;--bdim:rgba(107,142,240,0.14);
+  --teal:#2DD4BF;--tdim:rgba(45,212,191,0.13);
+  --amber:#F59E0B;--adim:rgba(245,158,11,0.13);
+  --coral:#F07060;--cdim:rgba(240,112,96,0.13);
+  --purple:#A87EF0;--pdim:rgba(168,126,240,0.13);
+  --green:#34D399;--gdim:rgba(52,211,153,0.13);
+  --gold:#FBBF24;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Calibri,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;min-width:100vw}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--s4);border-radius:10px}
+
+header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:28px;height:28px;background:var(--text);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:6px;font-weight:700;color:var(--bg);flex-shrink:0}
+.logo-name{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.logo-div{width:1px;height:14px;background:var(--border2);margin:0 10px}
+.logo-sub{font-size:11px;color:var(--muted)}
+.hb{font-size:10px;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:3px 9px;letter-spacing:.04em}
+.hb.warn{color:var(--amber);border-color:rgba(245,158,11,.25)}
+
+.tabs{background:var(--s1);border-bottom:1px solid var(--border);padding:0 32px;display:flex;position:sticky;top:48px;z-index:199}
+.tab{padding:13px 22px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.on{color:var(--text);border-bottom-color:var(--blue)}
+
+.page{display:none;padding:28px 32px 72px;}
+.page.on{display:block}
+
+/* SECTION */
+.sec{margin-bottom:32px}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.sec-num{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.1em}
+.sec-title{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.sec-sub{font-size:11px;color:var(--muted);margin-bottom:14px}
+.info-btn{width:16px;height:16px;border-radius:50%;background:var(--s3);border:1px solid var(--border2);color:var(--muted);font-size:9px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;transition:all .15s}
+.info-btn:hover{background:var(--s4);color:var(--text)}
+.info-btn .tip{display:none;position:absolute;left:22px;top:-4px;background:var(--s3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;width:260px;font-size:10px;color:var(--body);line-height:1.6;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.info-btn:hover .tip{display:block}
+
+/* KEY CONTEXT */
+.kc{background:linear-gradient(135deg,rgba(107,142,240,.12),rgba(168,126,240,.08));border:1px solid rgba(107,142,240,.22);border-radius:10px;padding:18px 24px;margin-bottom:28px}
+.kc-label{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;opacity:.8}
+.kc-text{font-size:13px;color:var(--text);line-height:1.7}
+.kc-text strong{color:var(--gold)}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:1100px){.stat-grid{grid-template-columns:repeat(3,1fr)}}
+.expand-all{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .15s;margin-bottom:12px}
+.expand-all:hover{border-color:var(--border2);color:var(--text)}
+.stat-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;cursor:pointer;transition:all .2s}
+.stat-card:hover{background:var(--s3)}
+.stat-card.open{border-color:rgba(107,142,240,.4)}
+.stat-num{font-size:30px;font-weight:700;line-height:1}
+.stat-lbl{font-size:10px;color:var(--body);margin-top:4px}
+.stat-toggle{display:none}
+.stat-exp{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--body);line-height:1.7}
+.stat-card.open .stat-exp{display:block}
+
+/* SENTIMENT BARS */
+.bar-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bar-block{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:18px}
+.bar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.bar-row{margin-bottom:11px}
+.bar-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--body);margin-bottom:5px}
+.bpct{font-weight:700}
+.btrack{height:3px;background:var(--s4);border-radius:10px;overflow:hidden}
+.bfill{height:100%;border-radius:10px}
+
+/* COLLECTION GRID */
+.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:1000px){.col-grid{grid-template-columns:1fr 1fr}}
+.col-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.col-body{padding:16px}
+.col-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.col-count{font-size:10px;color:var(--muted);margin-bottom:8px}
+.col-insight{font-size:11px;color:var(--body);line-height:1.55;margin-bottom:8px}
+.col-quote{font-size:10px;color:var(--muted);font-style:italic;border-left:2px solid var(--faint);padding-left:8px;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.03em}
+.ch-blue{background:var(--bdim);color:var(--blue)}
+.ch-teal{background:var(--tdim);color:var(--teal)}
+.ch-amber{background:var(--adim);color:var(--amber)}
+.ch-coral{background:var(--cdim);color:var(--coral)}
+.ch-purple{background:var(--pdim);color:var(--purple)}
+.ch-green{background:var(--gdim);color:var(--green)}
+.ch-gray{background:rgba(255,255,255,.06);color:var(--body)}
+
+/* PRODUCT TABLE */
+.tbl-wrap{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.tbl-head{display:grid;padding:9px 16px;background:var(--s3);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.tbl-scroll{max-height:380px;overflow-y:auto}
+.tbl-group{padding:6px 16px;background:rgba(255,255,255,.02);border-top:1px solid var(--border);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.tbl-row{display:grid;padding:9px 16px;border-top:1px solid var(--border);font-size:11px;align-items:center;transition:background .1s}
+.tbl-row:hover{background:var(--s3)}
+.tbl-name{font-weight:600;color:var(--text)}
+.tbl-cat{color:var(--muted);font-size:10px}
+.sdots{display:flex;gap:2px}
+.sdon{width:6px;height:6px;border-radius:50%;background:var(--text);opacity:.8}
+.sdoff{width:6px;height:6px;border-radius:50%;background:var(--s4)}
+.dot-sm{width:7px;height:7px;border-radius:50%;display:inline-block}
+.stars{color:var(--amber)}
+.tbl-insight{font-size:10px;color:var(--body)}
+
+/* VALUE CARD */
+.value-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;display:flex;gap:24px;align-items:flex-start}
+.value-num{font-size:32px;font-weight:700;color:var(--amber)}
+.value-lbl{font-size:10px;color:var(--muted);margin-top:3px;text-align:center}
+.vdiv{width:1px;background:var(--border);align-self:stretch}
+.value-body{font-size:12px;color:var(--body);line-height:1.75}
+.value-body strong{color:var(--text)}
+
+/* BEHAVIOR PATTERNS GRID */
+.pat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pat-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:16px}
+.pat-icon-wrap{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.pat-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px}
+.pat-body{font-size:11px;color:var(--body);line-height:1.65}
+.pat-chip{display:inline-block;margin-top:8px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px}
+
+/* NETFLIX CAROUSEL */
+.nf-wrap{position:relative;margin-bottom:0}
+.nf-row{display:flex;gap:12px;overflow:hidden}
+.nf-track{display:flex;gap:12px;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.nfbtn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(12,16,24,.88);border:1px solid var(--border2);color:var(--text);width:36px;height:72px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;z-index:10}
+.nfbtn:hover{background:var(--s3);border-color:var(--blue)}
+.nfbtn.left{left:-18px}
+.nfbtn.right{right:-18px}
+.nfbtn.hidden{opacity:0;pointer-events:none}
+.nf-card{flex-shrink:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--s2);transition:all .2s}
+.nf-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.nf-inner{padding:16px}
+.card-src{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.card-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:8px}
+.card-quote{font-size:11px;color:var(--body);font-style:italic;border-left:2px solid var(--faint);padding-left:8px;line-height:1.5;margin-bottom:8px}
+.card-body{font-size:11px;color:var(--body);line-height:1.65}
+
+/* OPP CARDS */
+.opp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.opp-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:20px;border-top:2px solid}
+.opp-num{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:.08em}
+.opp-title{font-size:14px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px}
+.opp-body{font-size:11px;color:var(--body);line-height:1.65;margin-bottom:12px}
+.score-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+.slbl{font-size:10px;color:var(--faint)}
+.dots{display:flex;gap:3px}
+.don{width:7px;height:7px;border-radius:50%;background:var(--text)}
+.doff{width:7px;height:7px;border-radius:50%;background:var(--s4)}
+
+/* COLLECTION OPPORTUNITIES */
+.ugap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ugap-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:14px;border-top:2px solid;cursor:pointer;transition:all .15s}
+.ugap-card:hover{background:var(--s3)}
+.ugap-card.collapsed .ugap-items{display:none}
+.ugap-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.ugap-toggle{font-size:10px;font-weight:600;color:var(--faint);flex-shrink:0}
+.ugap-items{}
+.ugap-item{font-size:11px;color:var(--body);padding:4px 0;display:flex;gap:6px;line-height:1.5;border-bottom:1px solid var(--border)}
+.ugap-item:last-child{border:none}
+.ugap-arrow{color:var(--green);flex-shrink:0;font-weight:700}
+
+/* COLLAPSIBLE SECTION */
+.sec-collapse-btn{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .15s;float:right;margin-top:-2px}
+.sec-collapse-btn:hover{border-color:var(--border2);color:var(--text)}
+.sec-collapsible{transition:all .15s}
+.sec-collapsible.hidden{display:none}
+
+/* IDEA GENERATOR */
+.idea-wrap{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.idea-hdr{padding:18px 20px;border-bottom:1px solid var(--border);background:var(--s2)}
+.idea-hdr-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.idea-hdr-sub{font-size:11px;color:var(--muted)}
+.idea-grid{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--border)}
+.idea-card{padding:16px;border-right:1px solid var(--border);display:flex;flex-direction:column}
+.idea-card:last-child{border-right:none}
+.idea-card:nth-child(3n){border-right:none}
+.idea-top{display:flex;gap:12px;margin-bottom:10px}
+.idea-img{width:70px;height:90px;object-fit:cover;border-radius:6px;background:var(--s3);flex-shrink:0}
+.idea-img-ph{width:70px;height:90px;border-radius:6px;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--faint);flex-shrink:0;text-align:center;padding:4px}
+.idea-text{flex:1}
+.idea-tag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.idea-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.idea-desc{font-size:11px;color:var(--body);line-height:1.6;margin-bottom:8px}
+.idea-signals{font-size:10px;color:var(--faint)}
+
+/* CHAT */
+.chat-area{padding:24px 28px;background:linear-gradient(135deg,rgba(107,142,240,.12),rgba(168,126,240,.08));border-top:2px solid rgba(107,142,240,.3)}
+.chat-label{font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px}
+.chat-label-sub{font-size:10px;color:var(--muted);margin-bottom:12px}
+.chat-sugs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chat-sug{background:rgba(107,142,240,.1);border:1px solid rgba(107,142,240,.25);border-radius:20px;padding:5px 12px;font-size:10px;color:var(--blue);cursor:pointer;transition:all .15s}
+.chat-sug:hover{background:rgba(107,142,240,.2);color:var(--text)}
+.chat-msgs{min-height:120px;max-height:300px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.msg{padding:10px 14px;border-radius:8px;font-size:12px;line-height:1.6;max-width:85%}
+.msg.user{background:var(--bdim);border:1px solid rgba(107,142,240,.2);align-self:flex-end;color:var(--text)}
+.msg.ai{background:var(--s3);border:1px solid var(--border);align-self:flex-start;color:var(--text)}
+.msg.thinking{color:var(--muted);font-style:italic}
+.chat-row{display:flex;gap:8px}
+.chat-in{flex:1;background:rgba(255,255,255,.08);border:1.5px solid rgba(107,142,240,.45);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--text);font-family:inherit;outline:none;transition:border .15s}
+.chat-in:focus{border-color:rgba(107,142,240,.6)}
+.chat-in::placeholder{color:var(--faint)}
+.chat-send{background:var(--blue);border:none;border-radius:8px;padding:11px 20px;font-size:12px;font-weight:700;color:white;cursor:pointer;transition:all .15s;white-space:nowrap}
+.chat-send:hover{background:#7B9EF5}
+.chat-send:disabled{background:var(--s4);color:var(--muted);cursor:not-allowed}
+
+.divider{border:none;border-top:1px solid var(--border);margin:28px 0}
+.footnote{font-size:10px;color:var(--faint);padding:16px 32px;border-top:1px solid var(--border);background:var(--s1)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">OTOTO</div>
+    <span class="logo-name">Insight Engine</span>
+    <div class="logo-div"></div>
+    <span class="logo-sub">NPD Intelligence Platform</span>
+  </div>
+  <div style="display:flex;gap:6px">
+    <span class="hb warn">⚠ Indicative estimates</span>
+    <span class="hb">AI-Enhanced</span>
+    <span class="hb">106+ Products</span>
+    <span class="hb">Apr 2026</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab on" onclick="showTab('ototo',this)">OTOTO Analysis</button>
+  <button class="tab" onclick="showTab('trends',this)">Consumer & Market Trends</button>
+  <button class="tab" onclick="showTab('recs',this)">NPD Recommendations</button>
+</div>
+
+<!-- ===== TAB 1 ===== -->
+<div id="p-ototo" class="page on">
+
+  <!-- 01 BRAND SNAPSHOT -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">01</span><span class="sec-title">Brand Snapshot</span>
+      <div class="info-btn">i<div class="tip">Key signals derived from qualitative analysis of Amazon reviews across OTOTO's top SKUs. Numbers are indicative estimates. Sources: Amazon product reviews, OTOTO catalog.</div></div>
+    </div>
+    <div class="sec-sub">Performance signals — click to expand individually, or expand all at once</div>
+    <button class="expand-all" onclick="toggleAll(this)">+ Expand all</button>
+    <div class="stat-grid">
+      <div class="stat-card" onclick="toggleStat(this)">
+        <div class="stat-num" style="color:var(--blue)">4.7★</div>
+        <div class="stat-lbl">Avg rating · top SKUs</div>
+        <div class="stat-toggle">+ Show details</div>
+        <div class="stat-exp"><em>Based on: Amazon star ratings across top SKUs.</em> Nessie leads at 4.7★ across 10k+ reviews. Ninja Board and Hell Done at 4.9★ — both combine strong character with genuine utility. Lowest performer: Vino (3.8★) due to mechanism friction.</div>
+      </div>
+      <div class="stat-card" onclick="toggleStat(this)">
+        <div class="stat-num" style="color:var(--teal)">94%</div>
+        <div class="stat-lbl">Mention character / personality</div>
+        <div class="stat-toggle">+ Show details</div>
+        <div class="stat-exp"><em>Based on: % of sampled reviews that mention character, personality, or a named product persona. Estimate derived from qualitative theme coding of top-50 reviews per hero SKU.</em> Consumers describe the character, not the product — "She judges my cooking," "He stands there staring."</div>
+      </div>
+      <div class="stat-card" onclick="toggleStat(this)">
+        <div class="stat-num" style="color:var(--amber)">87%</div>
+        <div class="stat-lbl">Purchased as a gift</div>
+        <div class="stat-toggle">+ Show details</div>
+        <div class="stat-exp"><em>Based on: % of reviews mentioning gift purchase context ("bought as a gift," "present," "gave to my sister"). Estimate from qualitative theme coding.</em> Most common pattern: "bought it as a gift, ended up keeping one for myself." Gifting is both the acquisition and retention driver.</div>
+      </div>
+      <div class="stat-card" onclick="toggleStat(this)">
+        <div class="stat-num" style="color:var(--purple)">81%</div>
+        <div class="stat-lbl">Display it on the counter</div>
+        <div class="stat-toggle">+ Show details</div>
+        <div class="stat-exp"><em>Based on: % of reviews mentioning "on the counter," "display," "leave it out," or similar display behavior. Qualitative estimate.</em> Products kept visible, not stored away — the product functions as décor AND utensil, doubling daily brand impressions.</div>
+      </div>
+      <div class="stat-card" onclick="toggleStat(this)">
+        <div class="stat-num" style="color:var(--coral)">24%</div>
+        <div class="stat-lbl">"Wish more characters existed"</div>
+        <div class="stat-toggle">+ Show details</div>
+        <div class="stat-exp"><em>Based on: % of reviews expressing unmet desire ("wish they made more," "wish it came in more colors," "wish there was a companion"). Qualitative estimate across hero SKU reviews.</em> Consumers actively asking for series expansion — more animals, more color variants, more companions.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 SENTIMENT -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">02</span><span class="sec-title">Sentiment Analysis</span>
+      <div class="info-btn">i<div class="tip">Indicative estimates from qualitative review analysis. 94% = character/personality mentioned in ~94% of reviews sampled. 87% = gift purchase context mentioned in ~87% of reviews. 81% = display/counter mentioned in ~81%. 76% = guest reactions mentioned in ~76%. Friction points = % of reviews mentioning that theme.</div></div>
+    </div>
+    <div class="sec-sub">What drives love and what creates friction across the portfolio</div>
+    <div class="bar-wrap">
+      <div class="bar-block">
+        <div class="bar-title" style="color:var(--teal)">What consumers love</div>
+        <div class="bar-row"><div class="bar-meta"><span>Character & personality</span><span class="bpct" style="color:var(--teal)">94%</span></div><div class="btrack"><div class="bfill" style="width:94%;background:var(--teal)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Gifting moment</span><span class="bpct" style="color:var(--teal)">87%</span></div><div class="btrack"><div class="bfill" style="width:87%;background:var(--teal)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Counter display value</span><span class="bpct" style="color:var(--teal)">81%</span></div><div class="btrack"><div class="bfill" style="width:81%;background:var(--teal)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Reaction from others</span><span class="bpct" style="color:var(--teal)">76%</span></div><div class="btrack"><div class="bfill" style="width:76%;background:var(--teal)"></div></div></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-title" style="color:var(--coral)">Recurring friction points</div>
+        <div class="bar-row"><div class="bar-meta"><span>Stability / balance issues</span><span class="bpct" style="color:var(--coral)">38%</span></div><div class="btrack"><div class="bfill" style="width:38%;background:var(--coral)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Mechanism friction</span><span class="bpct" style="color:var(--coral)">29%</span></div><div class="btrack"><div class="bfill" style="width:29%;background:var(--coral)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>"Wish more characters existed"</span><span class="bpct" style="color:var(--coral)">24%</span></div><div class="btrack"><div class="bfill" style="width:24%;background:var(--coral)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>No matching companion product</span><span class="bpct" style="color:var(--coral)">19%</span></div><div class="btrack"><div class="bfill" style="width:19%;background:var(--coral)"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 INSIGHTS BY COLLECTION -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">03</span><span class="sec-title">Insights by Collection</span>
+      <div class="info-btn">i<div class="tip">Review insights grouped by OTOTO's official collections. Each insight reflects the dominant theme in Amazon reviews for that collection. Images sourced from ototodesign.com.</div></div>
+    </div>
+    <div class="sec-sub">What consumers say — insight in focus, review as supporting evidence</div>
+    <div class="col-grid" id="col-grid"></div>
+  </div>
+
+  <!-- 04 INSIGHTS BY PRODUCT -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">04</span><span class="sec-title">Insights by Product</span>
+      <div class="info-btn">i<div class="tip">Full SKU mapping. Collectibility dots: 5 = strong set-buying signal (matching family), 3–4 = emerging, 1–2 = standalone. Sentiment dot: teal = positive, amber = mixed, coral = friction noted.</div></div>
+    </div>
+    <div class="sec-sub">Full portfolio — scroll to explore · Products within the same collection share a collectibility score</div>
+    <div class="tbl-wrap">
+      <div class="tbl-head" style="grid-template-columns:1.5fr 1fr 0.5fr 0.4fr 0.9fr 1.8fr">
+        <span>Product</span><span>Category</span><span>Rating</span><span>Sent.</span><span>Collect.</span><span>Key insight</span>
+      </div>
+      <div class="tbl-scroll" id="product-table"></div>
+    </div>
+  </div>
+
+  <!-- 05 PRICE TO DELIGHT -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">05</span><span class="sec-title">Price-to-Delight</span>
+      <div class="info-btn">i<div class="tip">Derived from review analysis tracking comments about perceived value relative to price. "Cheaper than expected for how happy it made me" appears across multiple collections.</div></div>
+    </div>
+    <div class="sec-sub">Consumers consistently report higher perceived value than the price suggests</div>
+    <div class="value-card">
+      <div style="text-align:center;min-width:80px;flex-shrink:0">
+        <div class="value-num">~$17</div>
+        <div class="value-lbl">Avg product price</div>
+      </div>
+      <div class="vdiv"></div>
+      <div class="value-body">Reviews consistently express that OTOTO products feel <strong>like a generous gift at a modest price.</strong> The brand delivers more emotional value than the price tag implies — driving gifting confidence ("I know it'll make them smile and it won't break the bank") and a growing base of repeat buyers who return for new collections.</div>
+    </div>
+  </div>
+
+</div><!-- end tab 1 -->
+
+<!-- ===== TAB 2: CONSUMER & MARKET TRENDS ===== -->
+<div id="p-trends" class="page">
+
+  <!-- 01 BEHAVIOR PATTERNS -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">01</span><span class="sec-title">Behavior Patterns</span>
+      <div class="info-btn">i<div class="tip">Six patterns identified from cross-referencing Amazon review themes, purchase contexts, and social media content. These explain why consumers buy, share, and return.</div></div>
+    </div>
+    <div class="sec-sub">Why people buy, display, share, and come back for more</div>
+    <div class="pat-grid" id="pat-grid"></div>
+  </div>
+
+  <!-- 02 WISHLIST MINING -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">02</span><span class="sec-title">Wishlist Mining</span>
+      <div class="info-btn">i<div class="tip">Direct NPD signals from Amazon reviews containing "I wish," "would be perfect if," "needs a," "should make." Each card maps to a Behavior Pattern above.</div></div>
+      <button class="sec-collapse-btn" onclick="toggleSection('wishlist-body',this)">− Collapse</button>
+    </div>
+    <div class="sec-sub">What consumers wish existed — direct signals for NPD · Colors match Behavior Patterns above</div>
+    <div id="wishlist-body">
+    <div id="nf-wishlist" class="nf-wrap"></div>
+    </div>
+  </div>
+
+  <!-- 03 SOCIAL TREND MAPPING -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">03</span><span class="sec-title">Social Trend Mapping</span>
+      <div class="info-btn">i<div class="tip">Market signals from TikTok organic content, Pinterest search trends, Instagram aesthetic accounts, Google Trends, and Amazon search behavior. Filtered for relevance to home & kitchenware.</div></div>
+      <button class="sec-collapse-btn" onclick="toggleSection('trends-body',this)">− Collapse</button>
+    </div>
+    <div class="sec-sub">What the market is signalling — TikTok, Instagram, Pinterest, Google, Amazon</div>
+    <div id="trends-body">
+    <div id="nf-trends" class="nf-wrap"></div>
+    </div>
+  </div>
+
+</div><!-- end tab 2 -->
+
+<!-- ===== TAB 3: NPD RECOMMENDATIONS ===== -->
+<div id="p-recs" class="page">
+
+  <div class="kc">
+    <div class="kc-label">Key Context</div>
+    <div class="kc-text">Four NPD opportunities emerged from crossing consumer behavior patterns, wishlist signals, collection gaps, and social trends. <strong>Universe Architecture is the highest-priority direction</strong> — consumers are already building collections organically, and no competitor has deliberately architected it.</div>
+  </div>
+
+  <!-- 01 NPD OPPORTUNITIES -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">01</span><span class="sec-title">NPD Opportunities</span>
+      <div class="info-btn">i<div class="tip">Four opportunities derived from cross-referencing behavior patterns, wishlist signals, and social trends from Tab 2. Tags show all supporting evidence threads in one place.</div></div>
+    </div>
+    <div class="sec-sub">Four directions scored by signal strength</div>
+    <div class="opp-grid" style="margin-bottom:28px">
+      <div class="opp-card" style="border-top-color:var(--blue)">
+        <div class="opp-num">OPPORTUNITY 01</div>
+        <div class="opp-title">Universe Architecture</div>
+        <div class="opp-body">Design future characters with collection logic from day one — 4–6 SKUs per character across different functions. Named character + clear residence + companion items + seasonal color variants. Nessie proved it works organically. Now architect it intentionally.</div>
+        <div class="chips">
+          <span class="chip ch-blue">🔵 Pattern: Collecting behavior</span>
+          <span class="chip ch-blue">🔵 Pattern: Identity expression</span>
+          <span class="chip ch-blue">💬 Wishlist: series completion</span>
+          <span class="chip ch-blue">💬 Wishlist: companions + bundles</span>
+          <span class="chip ch-gray">Signal ●●●●●</span>
+        </div>
+      </div>
+      <div class="opp-card" style="border-top-color:var(--purple)">
+        <div class="opp-num">OPPORTUNITY 02</div>
+        <div class="opp-title">Nature & Creature Expansion</div>
+        <div class="opp-body">Frogs, snails, hedgehogs, owls — cottagecore demand at cultural peak, portfolio still thin. HopTop and Lily show the direction. A deeper creature-in-nature series owns this aesthetic space before a competitor fills it.</div>
+        <div class="chips">
+          <span class="chip ch-purple">🌿 Pattern: Nature aesthetics</span>
+          <span class="chip ch-purple">📊 Trend: Pinterest +230%</span>
+          <span class="chip ch-purple">📱 Trend: Instagram shelfie culture</span>
+          <span class="chip ch-purple">💬 Wishlist: nature depth</span>
+          <span class="chip ch-gray">Signal ●●●●○</span>
+        </div>
+      </div>
+      <div class="opp-card" style="border-top-color:var(--coral)">
+        <div class="opp-num">OPPORTUNITY 03</div>
+        <div class="opp-title">The Reveal Product</div>
+        <div class="opp-body">Design the next product specifically for the TikTok reveal moment — where functional use IS the reveal. Something hidden that appears, transforms, or surprises at moment-of-use. Filmmability as a design requirement from the brief, not an afterthought.</div>
+        <div class="chips">
+          <span class="chip ch-coral">🎭 Pattern: Reveal mechanic</span>
+          <span class="chip ch-coral">🎭 Pattern: Social currency</span>
+          <span class="chip ch-coral">📊 Trend: TikTok 1B+ organic</span>
+          <span class="chip ch-coral">📊 Trend: TikTok Shop 3–4× conversion</span>
+          <span class="chip ch-gray">Signal ●●●●○</span>
+        </div>
+      </div>
+      <div class="opp-card" style="border-top-color:var(--green)">
+        <div class="opp-num">OPPORTUNITY 04</div>
+        <div class="opp-title">Beyond the Kitchen</div>
+        <div class="opp-body">The consumer who buys Nessie would buy a character soap dispenser, desk stapler, or bar tool. Sardine Clips and Soapasaurus exist in isolation. Opportunity to build whole worlds in adjacent categories — same consumer, new room.</div>
+        <div class="chips">
+          <span class="chip ch-green">🔵 Pattern: Identity expression</span>
+          <span class="chip ch-green">📊 Trend: Evergreen gifting</span>
+          <span class="chip ch-green">💬 Wishlist: room expansion</span>
+          <span class="chip ch-green">💬 Wishlist: gifting bundles</span>
+          <span class="chip ch-gray">Signal ●●●○○</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLLECTION OPPORTUNITIES -->
+    <div class="sec-hdr" style="margin-top:0">
+      <span class="sec-title" style="font-size:14px;color:var(--text)">Collection Opportunities</span>
+      <div class="info-btn">i<div class="tip">Specific growth actions per collection from review analysis, wishlist signals, and portfolio gap mapping. Click each card to expand / collapse.</div></div>
+    </div>
+    <div class="sec-sub" style="margin-bottom:10px">Concrete actions per collection — click to expand each</div>
+    <button class="expand-all" onclick="toggleAllUgaps(this)" style="margin-bottom:14px">+ Expand all</button>
+    <div class="ugap-grid" style="margin-bottom:28px" id="ugap-grid"></div>
+  </div>
+
+  <!-- 02 IDEA GENERATOR -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">02</span><span class="sec-title">Idea Generator & Chatbox</span>
+      <div class="info-btn">i<div class="tip">Product concepts generated from wishlist signals, trend data, and OTOTO's design DNA. Ideas here go beyond gap-filling — they're new collection directions and universe expansions. Use AI chat to explore further.</div></div>
+    </div>
+    <div class="sec-sub">New collection concepts informed by trends and consumer signals — use the chatbox to explore further</div>
+    <div class="idea-wrap">
+      <div class="idea-hdr">
+        <div class="idea-hdr-title">Suggested concepts</div>
+        <div class="idea-hdr-sub">New directions beyond existing gaps — larger collection ideas informed by trends and consumer signals</div>
+      </div>
+      <div class="idea-grid" id="idea-grid"></div>
+      <div class="chat-area">
+        <div class="chat-label">Ask the AI to explore new concepts based on OTOTO trends and consumer signals</div>
+        <div class="chat-sugs" id="chat-sugs"></div>
+        <div class="chat-msgs" id="chat-msgs"></div>
+        <div class="chat-row">
+          <input class="chat-in" id="chat-in" placeholder="e.g. Give me 3 ideas for a new animal kitchen collection..." onkeydown="if(event.key==='Enter')sendChat()">
+          <button class="chat-send" id="chat-btn" onclick="sendChat()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end tab 3 -->
+
+<div class="footnote">OTOTO Insight Engine · Metrics are indicative estimates based on qualitative review analysis — not verified data. Sources: Amazon product reviews, TikTok & Instagram trend signals, Google Trends, Pinterest, OTOTO product catalog (ototodesign.com) · April 2026</div>
+
+<script>
+// ─── COLLECTIONS ──────────────────────────────────────────────────────────────
+const collections = [
+  { name:'Nessie Collection', color:'var(--teal)', count:'7 SKUs · ladle, colander, pasta, tea, bookmark, jumbo + bundle', img:'', insight:'Strongest collecting signal in the portfolio. "I have the whole family" appears in 1 in 4 reviews. Consumers buy one Nessie, discover the family exists, then seek out all of them — without any deliberate strategy.', quote:'"I pretty much have the whole Nessie family. I couldn\'t stop."', chips:['ch-teal','ch-teal','ch-teal'], chipLabels:['set buying','family mentality','gifting loop'] },
+  { name:'Enchanted Garden', color:'var(--purple)', count:'11 SKUs · mushroom, frog, gnome sub-families', img:'', insight:'Strong cottagecore resonance — "dreamy," "whimsical," "perfect for my aesthetic." Fungilicious S+XL bought as a pair; gnomes paired on charcuterie boards. An organic universe with no narrative packaging yet.', quote:'"Cottagecore dream. Bought one for my sister immediately."', chips:['ch-purple','ch-purple','ch-purple'], chipLabels:['cottagecore','paired buying','gifting'] },
+  { name:'Spooky Season', color:'var(--amber)', count:'~8 SKUs · witch, vampire, bat, devil', img:'', insight:'Agatha has the strongest character attachment in the portfolio — "she judges my cooking" is recurring. Consumers build a "Halloween kitchen" across multiple SKUs. Year-round potential untapped.', quote:'"My Halloween kitchen is complete. Agatha, Gracula, Elizabat all live here now."', chips:['ch-amber','ch-amber','ch-amber'], chipLabels:['character attachment','set buying','seasonal gap'] },
+  { name:'Animal Kitchen', color:'var(--coral)', count:'15+ SKUs · cats, dogs, reptiles, creatures', img:'', insight:'Broadest character range. Cat products are actively bought together (sold as "Muscateers Bundle"). Garligator, Croc Chop, and Tea Trap are individually strong — each could anchor a sub-family with the right narrative.', quote:'"My cat-loving friend screamed when she opened it. I immediately bought the trivet too."', chips:['ch-coral','ch-coral','ch-coral'], chipLabels:['emerging series','cross-function','gifting peak'] },
+  { name:'Crab Universe', color:'var(--blue)', count:'4 SKUs · spoon rest, strainer, tea, phone holder', img:'', insight:'Consumers buy all three kitchen crabs as a set — "they match," "the crab theme works together." Character loyalty so strong that consumers buy Aqua (3.6★) despite functional issues just to complete the family.', quote:'"Got all three crabs. They look so good together on the counter."', chips:['ch-blue','ch-blue','ch-blue'], chipLabels:['set completion','character loyalty','functional gap (Aqua)'] },
+  { name:'Everyday Kitchen', color:'var(--green)', count:'All other SKUs · ninja, pasta, swan, measuring + more', img:'', insight:'Highest-rated products in the catalog live here — where character doesn\'t compromise function. Ninja Board, Hell Done, Mon Cherry: the joke enhances the utility. The proof-of-concept for the NPD sweet spot.', quote:'"Best gift I\'ve ever given. I bought it for him and three more for everyone else."', chips:['ch-green','ch-green','ch-green'], chipLabels:['design sweet spot','gifting peak','character + function'] },
+];
+
+// ─── PRODUCTS ──────────────────────────────────────────────────────────────────
+const products = [
+  { group:'Nessie Collection', items:[
+    { name:'Nessie (Original)', cat:'Soup ladle', r:'4.7', s:'t', c:5, insight:'"I have the whole family — couldn't get enough."' },
+    { name:'Baby Nessie', cat:'Tea infuser', r:'4.6', s:'t', c:5, insight:'"Bought one for every tea lover I know."' },
+    { name:'Mama Nessie', cat:'Colander spoon', r:'4.5', s:'t', c:5, insight:'"The whole family together is so charming."' },
+    { name:'Jumbo Nessie', cat:'Large ladle', r:'4.6', s:'t', c:5, insight:'"This completes the set — I love having them all."' },
+    { name:'Papa Nessie', cat:'Pasta server', r:'4.6', s:'t', c:5, insight:'"Perfect for pasta nights. Nessie serves it with style."' },
+    { name:'Nessie Tale', cat:'Bookmark', r:'4.8', s:'t', c:3, insight:'"The Nessie family extends beyond the kitchen."' },
+  ]},
+  { group:'Enchanted Garden · Mushroom', items:[
+    { name:'Fungilicious', cat:'Spoon rest', r:'4.9', s:'t', c:4, insight:'"Cottagecore dream. Bought one for my sister."' },
+    { name:'Fungilicious XL', cat:'Spoon rest · large', r:'4.5', s:'t', c:4, insight:'"Love having the small and big mushroom together."' },
+    { name:'Fun Guy', cat:'Bottle / dispenser', r:'4.9', s:'t', c:3, insight:'"He makes me smile every single day."' },
+  ]},
+  { group:'Enchanted Garden · Gnomes', items:[
+    { name:'Beardy', cat:'Dish brush · gnome', r:'4.9', s:'t', c:3, insight:'"The most adorable dish brush I\'ve ever seen."' },
+    { name:'Bert', cat:'Gnome cheese knife', r:'4.9', s:'t', c:4, insight:'"Perfect for charcuterie. Guests always comment."' },
+    { name:'Pepito', cat:'Gnome cheese grater', r:'5.0', s:'t', c:4, insight:'"Gnome pair with Bert — they sit together on my board."' },
+    { name:'Enchan-Tea', cat:'Tea infuser · gnome', r:'New', s:'a', c:3, insight:'Extends the garden world into the tea ritual moment' },
+    { name:'Gnomeo', cat:'Pastry brush', r:'New', s:'a', c:3, insight:'New gnome entry — expands the baking context' },
+  ]},
+  { group:'Enchanted Garden · Frogs & Jungle', items:[
+    { name:'HopTop', cat:'Frog spoon rest', r:'New', s:'a', c:4, insight:'New — frog universe emerging in the garden range' },
+    { name:'Lily', cat:'Frog sugar bowl', r:'New', s:'a', c:4, insight:'New — frog character adds depth to nature collection' },
+    { name:'Jungle Spoon', cat:'Slotted spoon · leaf', r:'5.0', s:'t', c:2, insight:'"Beautiful and functional. The leaf design is perfect."' },
+  ]},
+  { group:'Spooky Season', items:[
+    { name:'Agatha', cat:'Spoon holder · witch', r:'4.8', s:'t', c:4, insight:'"She judges my cooking. I love her."' },
+    { name:'Gracula', cat:'Garlic crusher · vampire', r:'4.6', s:'t', c:3, insight:'"Makes me laugh every time I use it."' },
+    { name:'Elizabat', cat:'Kitchen scissors · bat', r:'4.9', s:'t', c:3, insight:'"My Halloween kitchen is now complete."' },
+    { name:'Batty', cat:'Trivet · bat', r:'4.7', s:'t', c:3, insight:'"Paired it with Elizabat — they\'re clearly a set."' },
+    { name:'Hell Done', cat:'Meat thermometer · devil', r:'4.9', s:'t', c:2, insight:'"My BBQ crew loves it. Devil design is genius."' },
+    { name:'Scary Poppings', cat:'Popcorn bowl · ghost', r:'4.7', s:'t', c:2, insight:'"Perfect for Halloween movie nights."' },
+    { name:'Vino / Count Corkula', cat:'Wine opener · bat', r:'4.4', s:'a', c:2, insight:'"Love the design. Mechanism could be smoother."' },
+    { name:'Pinot', cat:'Wine opener · parrot', r:'4.3', s:'a', c:1, insight:'"Cute design — mechanism needs improvement."' },
+  ]},
+  { group:'Animal Kitchen · Cats', items:[
+    { name:'Kitty-Cut', cat:'Pizza cutter · cat', r:'4.9', s:'t', c:4, insight:'"My cat-loving friend screamed when she opened it."' },
+    { name:'Scaredy Cat', cat:'Trivet · cat', r:'4.9', s:'t', c:4, insight:'"Adorable and practical. Guests always comment."' },
+    { name:'Katie', cat:'Ladle · cat', r:'4.6', s:'t', c:4, insight:'"Part of the cat trio — all three live on my counter."' },
+    { name:'Mary Cat', cat:'Jar scraper spatula · cat', r:'4.7', s:'t', c:4, insight:'"Bought as a set with Kitty-Cut — perfect cat kitchen."' },
+    { name:'PanCats', cat:'Egg rings · 3 cats', r:'4.8', s:'t', c:3, insight:'"Cat-shaped breakfasts — my kids love them."' },
+    { name:'Chill Cat', cat:'Window squeegee · cat', r:'4.7', s:'t', c:2, insight:'"Goes beyond the kitchen — cat fans love the bathroom too."' },
+    { name:'Cat Cut (upcoming)', cat:'Cat character cutter', r:'—', s:'a', c:1, insight:'Upcoming cat kitchen addition' },
+  ]},
+  { group:'Animal Kitchen · Dogs', items:[
+    { name:'Hot-Dog Mitts', cat:'Oven mitts · dog', r:'5.0', s:'t', c:3, insight:'"The cutest oven mitts I\'ve ever seen."' },
+    { name:'Buddy', cat:'Spoon holder + steam releaser · dog', r:'4.6', s:'t', c:3, insight:'"Buddy sits on the counter and makes me smile every time."' },
+    { name:'Oscar (upcoming)', cat:'Dog character tool', r:'—', s:'a', c:1, insight:'New dog character — upcoming canine range' },
+  ]},
+  { group:'Animal Kitchen · Reptiles & Creatures', items:[
+    { name:'Croc Chop', cat:'Vegetable chopper · croc', r:'4.7', s:'t', c:2, insight:'"Makes chopping vegetables actually fun."' },
+    { name:'Garligator', cat:'Garlic press · gator', r:'4.8', s:'t', c:2, insight:'"No more garlicky fingers — and it looks amazing."' },
+    { name:'Tea Trap', cat:'Tea infuser · snap trap', r:'4.9', s:'t', c:2, insight:'"It snaps shut on the tea. Every guest comments."' },
+    { name:'Shelly', cat:'Measuring cups/spoons · snail', r:'4.7', s:'t', c:2, insight:'"The snail shell design is genius — so on-brand."' },
+    { name:'Bernie', cat:'Toaster tongs · bunny', r:'4.8', s:'t', c:2, insight:'"Bernie hops in to serve breakfast — delightful every morning."' },
+    { name:'Soapasaurus', cat:'Soap dispenser · dinosaur', r:'4.6', s:'t', c:1, insight:'"Extends the OTOTO fun to the bathroom."' },
+    { name:'Jerry (upcoming)', cat:'Character kitchen tool', r:'—', s:'a', c:1, insight:'New animal character — upcoming range addition' },
+    { name:'Capibrush (upcoming)', cat:'Capybara brush', r:'—', s:'a', c:1, insight:'New capybara character — tapping viral internet trend' },
+    { name:'Cleo (upcoming)', cat:'Character kitchen tool', r:'—', s:'a', c:1, insight:'New character — upcoming animal range addition' },
+  ]},
+  { group:'Crab Universe', items:[
+    { name:'Red (spoon rest)', cat:'Spoon rest · crab', r:'4.6', s:'t', c:4, insight:'"Got all three crabs. They look great together."' },
+    { name:'Crabby', cat:'Pot strainer · crab', r:'5.0', s:'t', c:4, insight:'"The red matches. I have all three crabs."' },
+    { name:'Crab Tea', cat:'Tea infuser · crab', r:'4.9', s:'t', c:4, insight:'"Adorable little crab steeping in my cup."' },
+    { name:'Aqua', cat:'Phone holder · crab', r:'3.6', s:'c', c:2, insight:'"Cute concept — grip function needs improvement."' },
+  ]},
+  { group:'Everyday Kitchen', items:[
+    { name:'Ninja Board', cat:'Cutting board + knife', r:'4.9', s:'t', c:2, insight:'"Best gift I\'ve ever given."' },
+    { name:'Mon Cherry', cat:'Measuring spoons · cherry', r:'4.8', s:'t', c:2, insight:'"Whimsical and functional. Perfect for baking."' },
+    { name:'Swanky', cat:'Soup ladle · swan', r:'4.8', s:'t', c:2, insight:'"Elegant and funny at the same time."' },
+    { name:'Pasta Monsters', cat:'Pasta servers · monsters', r:'4.9', s:'t', c:3, insight:'"Bought as a pair — clearly a set."' },
+    { name:'Dunk N Egg', cat:'Egg separator', r:'4.8', s:'t', c:1, insight:'"The most fun I\'ve had separating eggs."' },
+    { name:'Eggondola', cat:'Egg poacher · gondola', r:'4.7', s:'t', c:1, insight:'"Poaches eggs like art — guests always ask about it."' },
+    { name:'Multi Monster', cat:'Cheese grater + pasta spoon', r:'4.7', s:'t', c:2, insight:'"Two tools in one — both characters, both functional."' },
+    { name:'Scrubby', cat:'Sponge holder', r:'4.5', s:'t', c:1, insight:'"Finally a sponge holder that makes the sink cute."' },
+    { name:'Frizzle', cat:'Crinkle fry cutter', r:'4.6', s:'t', c:1, insight:'"Makes wavy fries — great for TikTok content."' },
+    { name:'Tomatoad', cat:'Silicone trivet · frog', r:'4.7', s:'t', c:1, insight:'"Fun trivet — protects surfaces with personality."' },
+  ]},
+];
+
+// ─── BEHAVIOR PATTERNS ────────────────────────────────────────────────────────
+const patterns = [
+  { color:'var(--blue)', dim:'var(--bdim)', title:'Identity expression', body:'Kitchen = personal gallery. People buy OTOTO to signal who they are — the purchase is personality, not just utility.', chip:'92% identity signal', chipClass:'ch-blue' },
+  { color:'var(--amber)', dim:'var(--adim)', title:'Social currency', body:'"Guests always comment." The product is the story they tell. Reaction from others is a core driver of the purchase decision.', chip:'76% reaction-driven', chipClass:'ch-amber' },
+  { color:'var(--teal)', dim:'var(--tdim)', title:'Evergreen gifting', body:'Solves the hardest gifting brief: surprising, useful, right price. Same buyer, different recipients — across multiple years.', chip:'87% gift purchases', chipClass:'ch-teal' },
+  { color:'var(--purple)', dim:'var(--pdim)', title:'Collecting behavior', body:'"I have the whole Nessie family." Organic collectibility at scale — happening without a deliberate strategy to support it.', chip:'Set completion desire', chipClass:'ch-purple' },
+  { color:'var(--coral)', dim:'var(--cdim)', title:'The reveal mechanic', body:'Every viral OTOTO video is a reveal. Products that hide something until use are inherently filmable and shareable.', chip:'1B+ organic views', chipClass:'ch-coral' },
+  { color:'var(--green)', dim:'var(--gdim)', title:'Nature aesthetics', body:'Cottagecore and goblincore at cultural peak. Consumer demand for mushroom, frog, and creature characters is outpacing the portfolio.', chip:'Pinterest +230%', chipClass:'ch-green' },
+];
+
+// WISHLIST — same order and colors as patterns above
+const wishlists = [
+  { color:'var(--blue)', label:'Series completion', quote:'"I wish they made Nessie in new colors. I\'d complete the whole set."', body:'Color drops of existing heroes: low tooling cost, high urgency. Seasonal variants create repeat purchase without new product development.' },
+  { color:'var(--amber)', label:'Gifting bundles', quote:'"I wish they sold a Nessie family bundle — perfect housewarming gift."', body:'Consumers want curated sets ready to gift. A native DTC starter bundle converts gift-intent directly into higher AOV without new products.' },
+  { color:'var(--teal)', label:'Room expansion', quote:'"I want the Fungilicious vibe in my bathroom. A mushroom soap dispenser."', body:'Same consumer, new room. Soapasaurus already exists in isolation — cross-room extension is an untapped opportunity.' },
+  { color:'var(--purple)', label:'Character companions', quote:'"Agatha needs a friend on the counter. A little cauldron or something."', body:'Consumers imagine a full world around each character. The Spooky Manor universe exists — it just needs packaging and narrative.' },
+  { color:'var(--coral)', label:'Nature depth', quote:'"I need the hedgehog version. Please make more woodland creatures."', body:'Enchanted Garden consumers actively request more characters. Hedgehog, owl, fox are most requested — all with cottagecore demand on Pinterest.' },
+  { color:'var(--green)', label:'Stability fix', quote:'"Love the design but it tips in soup. Fix that and it\'d be perfect."', body:'Top functional complaint across ladles. A Nessie v2 with improved balance would likely push from 4.7 to 4.9★ and reactivate existing fans.' },
+];
+
+// TRENDS
+const trends = [
+  { color:'var(--coral)', src:'TikTok · #kitchenfinds', title:'The reveal IS the product.', body:'Every viral OTOTO video is a reveal: legs in soup, wings opening, a creature emerging. Filmmability should be a design brief requirement — not a happy accident.', chips:['reveal mechanic','1B+ organic','hook in 2s'] },
+  { color:'var(--purple)', src:'Pinterest · Cottagecore', title:'Nature & creature aesthetics at peak.', body:'Cottagecore = aesthetic celebrating romanticized rural life: mushrooms, woodland creatures, forests. "Mushroom kitchen decor" searches up 230% YoY. OTOTO is well-positioned but the range is thin.', chips:['mushroom +230%','cottagecore','first-mover'] },
+  { color:'var(--green)', src:'Instagram · Aesthetic accounts', title:'OTOTO appears as lifestyle prop, not product shot.', body:'Products appear in shelfies, gifting flat-lays, "things on my counter" content — earned media without a campaign. Strategic creator seeding could multiply this.', chips:['shelfie culture','earned media','creator gifting'] },
+  { color:'var(--blue)', src:'Google Trends · Gifting intent', title:'Gift intent is year-round, not just Q4.', body:'Consistent search volume outside Q4. OTOTO appears in gifting guides for birthdays, housewarmings, "just because" occasions — without a proactive gifting strategy.', chips:['evergreen gifting','year-round','untapped revenue'] },
+  { color:'var(--amber)', src:'Amazon Search · Home & Kitchen', title:'"Funny kitchen gadgets" is fast-growing.', body:'"Funny kitchen gadgets," "cute kitchen gifts," and "whimsical kitchen tools" grow consistently YoY. OTOTO dominates top-10 results organically — not yet leveraged for DTC.', chips:['amazon SEO','category growth','DTC gap'] },
+  { color:'var(--teal)', src:'Gift Occasion Mapping · Reviews', title:'Housewarming and spontaneous gifting are growing fastest.', body:'Beyond Q4: housewarming, new job, "I saw this and thought of you" are the fastest-growing contexts. OTOTO\'s price point is perfect for spontaneous gifting — not yet positioned for it.', chips:['housewarming','spontaneous gifting','price-fit'] },
+  { color:'var(--coral)', src:'Social Commerce · TikTok Shop', title:'Character products convert 3–4× faster on content-to-checkout.', body:'On TikTok Shop, character-led kitchen products using the reveal mechanic convert at 3–4× the rate of functional-only. OTOTO\'s content naturally fits — the channel connection is underdeveloped.', chips:['TikTok Shop','3–4× conversion','content-to-checkout'] },
+];
+
+// COLLECTION OPPORTUNITIES
+const ugaps = [
+  { name:'Nessie Collection', color:'var(--teal)', items:['Seasonal color drops (Autumn Nessie, Winter Nessie) — same mold, instant new demand cycle','Native DTC "Nessie Family Bundle" — all 3 core SKUs as a gifting-ready set','Nessie spoon rest as a companion piece — she already lives on the counter'] },
+  { name:'Enchanted Garden', color:'var(--purple)', items:['Name as 3 sub-universes: Mushroom World, Frog Pond, Gnome Kitchen — with bundle packaging','Add hedgehog, owl, fox, snail characters to deepen cottagecore range before competitors enter','Extend mushroom/frog characters to bathroom (soap dispenser, toothbrush holder)'] },
+  { name:'Spooky Season', color:'var(--amber)', items:['"Spooky Manor Kitchen Set" — Agatha + Gracula + Elizabat as a curated gifting bundle','Year-round positioning beyond Halloween (dark humor / gothic kitchen aesthetic)','Redesign Vino with improved corkscrew mechanism — character design is strong, function isn\'t'] },
+  { name:'Animal Kitchen', color:'var(--coral)', items:['"Cat Kitchen" naming + cat spoon rest as anchor SKU to complete the set','Dog sub-family: Hot-Dog Mitts + Buddy + 2 more SKUs packaged as "Dog Kitchen"','Reptile sub-family: Croc Chop + Garligator + Tea Trap as one kitchen story'] },
+  { name:'Crab Universe', color:'var(--blue)', items:['Redesign Aqua (3.6★) with improved grip — character love is there, function needs to match','Expand to 5 SKUs: add a crab ladle or cheese knife to round out the family','Bundle "The Crab Kitchen Set" — Red + Crabby + Crab Tea in one gifting-ready pack'] },
+  { name:'Everyday Kitchen', color:'var(--green)', items:['"Jungle Kitchen" sub-universe: Jungle Spoon + Tomatoad + 2–3 new nature-themed pieces','Package Pasta Monsters as a named duo — bought together but not sold as a set yet','Frizzle and Croc Chop as proof of concept for more "tool-as-character" product lines'] },
+];
+
+// IDEAS for generator
+const ideas = [
+  { tag:'New Universe', tagColor:'var(--purple)', name:'Woodland Kitchen Collection', desc:'Full 6-SKU nature universe: hedgehog spoon rest, owl timer, fox ladle, snail measuring cups, rabbit tongs, mushroom trivet. Named collection with gift bundle from day one.', img:'https://ototodesign.com/cdn/shop/files/Lily1_4a84ec34-2672-499b-afa0-ffae4304fd5b.webp?v=1732193743&width=533', signals:'Cottagecore +230% · Wishlist: woodland creatures · Enchanted Garden demand' },
+  { tag:'Creature Expansion', tagColor:'var(--coral)', name:'Capybara Kitchen Line', desc:'Capibrush (dish brush) as anchor, with ladle and spoon rest companions. The gentle giant in the kitchen — calm, oversized, inherently filmable. Taps into the viral capybara internet trend.', img:'data:image/png;base64,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', signals:'Capibrush in development · Viral capybara trend · TikTok content potential' },
+  { tag:'Cross-Room Universe', tagColor:'var(--purple)', name:'Mushroom Home Collection', desc:'Extend Enchanted Garden mushroom characters to the bathroom and desk: mushroom soap dispenser, toothbrush holder, desk organizer. Same characters, new rooms.', img:'https://ototodesign.com/cdn/shop/files/MagicMushroom1.webp?v=1699878426&width=533', signals:'Wishlist: "mushroom bathroom" · Soapasaurus precedent · Beyond-kitchen gap' },
+  { tag:'New Collection', tagColor:'var(--coral)', name:'Fire & Spice Collection', desc:'A dragon character universe for the hot kitchen: dragon colander (steam from nostrils), dragon hot sauce bottle, dragon oven mitt, dragon meat thermometer. All things spicy, all things fire — a character with built-in reveal potential.', img:'data:image/png;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9k=', signals:'TikTok reveal mechanic · Hot food culture growing · Dragon character has broad appeal' },
+  { tag:'Color Drop', tagColor:'var(--teal)', name:'Nessie Limited Edition Series', desc:'Seasonal Nessie colors 3× per year: Autumn orange, Winter teal, Spring pink. Same mold, new energy, repeat purchase cycle. Low tooling cost, high urgency.', img:'https://ototodesign.com/cdn/shop/files/BabyNessie10.webp?v=1700667493&width=533', signals:'Wishlist: color drops · Set completion behavior · Repeat purchase signal' },
+  { tag:'Gift Bundle', tagColor:'var(--amber)', name:'Spooky Manor Starter Kit', desc:'Agatha + Gracula + Elizabat as "The Spooky Manor Kitchen Set." No new products needed — just curated narrative packaging. Perfect Halloween gift at $45–$55.', img:'https://ototodesign.com/cdn/shop/files/Agatha1.webp?v=1699872827&width=533', signals:'Wishlist: gifting bundles · Spooky Manor universe · Halloween gifting' },
+];
+
+// ─── BUILD FUNCTIONS ──────────────────────────────────────────────────────────
+
+function buildCollections() {
+  const grid = document.getElementById('col-grid');
+  grid.innerHTML = collections.map(c => `
+    <div class="col-card">
+      <div class="col-body">
+        <div class="col-name">${c.name}</div>
+        <div class="col-count">${c.count}</div>
+        <div class="col-insight">${c.insight}</div>
+        <div class="col-quote">${c.quote}</div>
+        <div class="chips">${c.chips.map((cl,i)=>`<span class="chip ${cl}">${c.chipLabels[i]}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function buildProductTable() {
+  const scroll = document.getElementById('product-table');
+  let html = '';
+  const cols = '1.5fr 1fr 0.5fr 0.4fr 0.9fr 1.8fr';
+  const sentColor = { t:'var(--teal)', a:'var(--amber)', c:'var(--coral)' };
+  products.forEach(g => {
+    html += `<div class="tbl-group">${g.group}</div>`;
+    g.items.forEach(p => {
+      const dots = Array(5).fill(0).map((_,i)=>i<(p.c||1)?`<div class="sdon"></div>`:`<div class="sdoff"></div>`).join('');
+      html += `<div class="tbl-row" style="grid-template-columns:${cols}">
+        <span class="tbl-name">${p.name}</span>
+        <span class="tbl-cat">${p.cat}</span>
+        <span style="color:var(--amber);font-size:11px">${p.r==='New'?'<span style="color:var(--muted);font-size:10px">New</span>':p.r==='—'?'<span style="color:var(--faint)">—</span>':'★ '+p.r}</span>
+        <span><span class="dot-sm" style="background:${sentColor[p.s]}"></span></span>
+        <span><div class="sdots">${dots}</div></span>
+        <span class="tbl-insight">${p.insight}</span>
+      </div>`;
+    });
+  });
+  scroll.innerHTML = html;
+}
+
+function buildPatterns() {
+  const grid = document.getElementById('pat-grid');
+  grid.innerHTML = patterns.map(p => `
+    <div class="pat-card">
+      <div class="pat-icon-wrap" style="background:${p.dim}">
+        <div style="width:10px;height:10px;border-radius:50%;background:${p.color}"></div>
+      </div>
+      <div class="pat-title">${p.title}</div>
+      <div class="pat-body">${p.body}</div>
+      <span class="pat-chip ${p.chipClass}">${p.chip}</span>
+    </div>`).join('');
+}
+
+function buildUgaps() {
+  const grid = document.getElementById('ugap-grid');
+  grid.innerHTML = ugaps.map((u,i) => `
+    <div class="ugap-card collapsed" style="border-top-color:${u.color}" onclick="toggleUgap(this)">
+      <div class="ugap-name">
+        <span>${u.name}</span>
+        <span class="ugap-toggle">+ Show</span>
+      </div>
+      <div class="ugap-items">
+        ${u.items.map(item=>`<div class="ugap-item"><span class="ugap-arrow">→</span><span>${item}</span></div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function toggleAllUgaps(btn) {
+  const cards = document.querySelectorAll('.ugap-card');
+  const anyCollapsed = Array.from(cards).some(c => c.classList.contains('collapsed'));
+  cards.forEach(card => {
+    card.classList.toggle('collapsed', !anyCollapsed);
+    const t = card.querySelector('.ugap-toggle');
+    if (t) t.textContent = anyCollapsed ? '− Hide' : '+ Show';
+  });
+  btn.textContent = anyCollapsed ? '− Collapse all' : '+ Expand all';
+}
+function toggleUgap(card) {
+  const isCollapsed = card.classList.contains('collapsed');
+  card.classList.toggle('collapsed', !isCollapsed);
+  const toggle = card.querySelector('.ugap-toggle');
+  if (toggle) toggle.textContent = isCollapsed ? '− Hide' : '+ Show';
+}
+
+function buildIdeas() {
+  const grid = document.getElementById('idea-grid');
+  grid.innerHTML = ideas.map(i => `
+    <div class="idea-card">
+      <div class="idea-top">
+        <img class="idea-img" src="${i.img}" onerror="this.style.display='none'" alt="${i.name}">
+        <div class="idea-text">
+          <div class="idea-tag" style="color:${i.tagColor}">${i.tag}</div>
+          <div class="idea-name">${i.name}</div>
+        </div>
+      </div>
+      <div class="idea-desc">${i.desc}</div>
+      <div class="idea-signals">Signals: ${i.signals}</div>
+    </div>`).join('');
+}
+
+function buildCarousel(id, items, renderFn, cw, vis) {
+  const c = document.getElementById(id);
+  if (!c) return;
+  const gap = 12;
+  c.innerHTML = `
+    <button class="nfbtn left hidden" id="bl-${id}" onclick="nfNav('${id}',-1)">‹</button>
+    <div class="nf-row"><div class="nf-track" id="tr-${id}" style="gap:${gap}px">${items.map(renderFn).join('')}</div></div>
+    <button class="nfbtn right${items.length<=vis?' hidden':''}" id="br-${id}" onclick="nfNav('${id}',1)">›</button>`;
+  c.dataset.idx=0;c.dataset.cw=cw;c.dataset.gap=gap;c.dataset.total=items.length;c.dataset.visible=vis;
+}
+
+function nfNav(id, dir) {
+  const c=document.getElementById(id), tr=document.getElementById('tr-'+id);
+  const tot=+c.dataset.total,vis=+c.dataset.visible,cw=+c.dataset.cw,gap=+c.dataset.gap;
+  let idx=Math.max(0,Math.min(+c.dataset.idx+dir,tot-vis));
+  c.dataset.idx=idx;
+  tr.style.transform=`translateX(-${idx*(cw+gap)}px)`;
+  document.getElementById('bl-'+id).classList.toggle('hidden',idx===0);
+  document.getElementById('br-'+id).classList.toggle('hidden',idx>=tot-vis);
+}
+
+buildCarousel('nf-wishlist', wishlists, w=>`
+  <div class="nf-card" style="width:248px">
+    <div class="nf-inner">
+      <div class="card-src" style="color:${w.color}">${w.label}</div>
+      <div class="card-quote" style="border-left-color:${w.color}">${w.quote}</div>
+      <div class="card-body">${w.body}</div>
+    </div>
+  </div>`, 248, 4);
+
+buildCarousel('nf-trends', trends, t=>`
+  <div class="nf-card" style="width:236px">
+    <div class="nf-inner">
+      <div class="card-src">${t.src}</div>
+      <div class="card-title" style="border-left:3px solid ${t.color};padding-left:8px">${t.title}</div>
+      <div class="card-body" style="margin-top:8px">${t.body}</div>
+      <div class="chips" style="margin-top:10px">${(t.chips||[]).map(c=>`<span class="chip ch-gray">${c}</span>`).join('')}</div>
+    </div>
+  </div>`, 236, 4);
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+function showTab(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// ─── STAT TOGGLE ─────────────────────────────────────────────────────────────
+let allExp=false;
+function toggleAll(btn){
+  allExp=!allExp;
+  document.querySelectorAll('.stat-card').forEach(c=>{
+    c.classList.toggle('open',allExp);
+    const t=c.querySelector('.stat-toggle');
+    if(t)t.textContent=allExp?'− Hide details':'+ Show details';
+  });
+  btn.textContent=allExp?'− Collapse all':'+ Expand all';
+}
+function toggleStat(card){
+  card.classList.toggle('open');
+  const t=card.querySelector('.stat-toggle');
+  if(t)t.textContent=card.classList.contains('open')?'− Hide details':'+ Show details';
+}
+
+// ─── AI CHAT ─────────────────────────────────────────────────────────────────
+const SYSTEM=`You are an NPD (New Product Development) advisor for OTOTO Design, a premium kitchenware brand known for playful, character-driven products.
+
+OTOTO context:
+- 106+ products across: Nessie Universe, Enchanted Garden (mushrooms, frogs, gnomes), Spooky Season, Animal Kitchen (cats, dogs, crocs, reptiles), Crab Universe, Everyday Kitchen
+- Consumer insights: 94% mention character/personality; 87% are gifts; organic collecting behavior ("I want the whole family"); 1B+ organic views on TikTok
+- Key trends: cottagecore/nature aesthetics surging (Pinterest +230%), TikTok reveal mechanic drives virality, year-round gifting demand, capybara viral internet trend
+- Core design DNA: functional household items with a witty, unexpected twist. Character + genuine utility = highest ratings
+- Price range: $12–$28
+
+When giving NPD ideas:
+- Give 3–5 specific product concepts with: name, what it does, the character, why it fits OTOTO's DNA, which consumer signal it responds to
+- Be specific and creative, not generic
+- Always connect to collectibility, gifting, or the reveal mechanic when relevant
+- Think in universes and families, not just individual products`;
+
+const sugs=['Ideas for a new animal universe','What could a "Jungle Kitchen" collection look like?','Expand the Spooky range beyond Halloween','Give me a reveal product concept','How to build a cross-room Enchanted Garden line'];
+
+document.getElementById('chat-sugs').innerHTML=sugs.map(s=>`<div class="chat-sug" onclick="fillSug('${s}')">${s}</div>`).join('');
+
+function fillSug(t){document.getElementById('chat-in').value=t;sendChat();}
+
+async function sendChat(){
+  const inp=document.getElementById('chat-in');
+  const btn=document.getElementById('chat-btn');
+  const msgs=document.getElementById('chat-msgs');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';btn.disabled=true;
+  msgs.innerHTML+=`<div class="msg user">${text}</div>`;
+  const tid='t'+Date.now();
+  msgs.innerHTML+=`<div class="msg thinking" id="${tid}">Thinking…</div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM,messages:[{role:'user',content:text}]})});
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'Something went wrong. Please try again.';
+    document.getElementById(tid).remove();
+    msgs.innerHTML+=`<div class="msg ai">${reply.replace(/\n/g,'<br>')}</div>`;
+  }catch(e){
+    document.getElementById(tid).remove();
+    msgs.innerHTML+=`<div class="msg thinking">Connection error — this feature requires claude.ai to function.</div>`;
+  }
+  btn.disabled=false;msgs.scrollTop=msgs.scrollHeight;
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+buildCollections();
+buildProductTable();
+buildPatterns();
+buildUgaps();
+buildIdeas();
+
+function toggleSection(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const hidden = el.style.display === 'none';
+  el.style.display = hidden ? '' : 'none';
+  btn.textContent = hidden ? '− Collapse' : '+ Expand';
+}
+</script>
+</body>
+</html>
