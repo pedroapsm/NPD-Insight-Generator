@@ -32,12 +32,12 @@
   --gold: #FBBF24;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Calibri,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.5}
+body{font-family:'Segoe UI',Calibri,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;min-width:0;overflow-x:hidden}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-thumb{background:var(--s4);border-radius:10px}
 
 /* HEADER */
-header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
 .logo{display:flex;align-items:center;gap:12px}
 .logo-mark{width:28px;height:28px;background:var(--text);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:6px;font-weight:700;color:var(--bg);flex-shrink:0}
 .logo-name{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
@@ -45,15 +45,16 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 .logo-sub{font-size:11px;color:var(--muted)}
 .hb{font-size:10px;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:3px 9px;letter-spacing:.04em}
 .hb.warn{color:var(--amber);border-color:rgba(245,158,11,.25)}
+.hb:hover > span{display:block !important}
 
 /* TABS */
-.tabs{background:var(--s1);border-bottom:1px solid var(--border);padding:0 32px;display:flex;position:sticky;top:48px;z-index:199}
+.tabs{background:var(--s1);border-bottom:1px solid var(--border);padding:0 24px;display:flex;position:sticky;top:48px;z-index:199}
 .tab{padding:13px 22px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .tab:hover{color:var(--text)}
 .tab.on{color:var(--text);border-bottom-color:var(--blue)}
 
 /* PAGES */
-.page{display:none;padding:28px 32px 72px;max-width:1280px;width:100%}
+.page{display:none;padding:24px 24px 72px;max-width:100%;width:100%}
 .page.on{display:block}
 
 /* SECTION */
@@ -65,7 +66,7 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 /* info tooltip */
 .info-btn{width:16px;height:16px;border-radius:50%;background:var(--s3);border:1px solid var(--border2);color:var(--muted);font-size:9px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;transition:all .15s}
 .info-btn:hover{background:var(--s4);color:var(--text)}
-.info-btn .tooltip{display:none;position:absolute;left:22px;top:-4px;background:var(--s3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;width:260px;font-size:10px;color:var(--muted);line-height:1.6;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.info-btn .tooltip{display:none;position:absolute;left:22px;top:-4px;background:var(--s3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;width:260px;font-size:10px;font-weight:400;color:var(--muted);line-height:1.6;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .info-btn:hover .tooltip{display:block}
 
 /* TOGGLE */
@@ -80,21 +81,21 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 .kc-text strong{color:var(--gold)}
 
 /* STAT CARDS */
-.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;min-width:0}
 @media(max-width:1100px){.stat-grid{grid-template-columns:repeat(3,1fr)}}
 .stat-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;transition:all .2s}
 .stat-card.open{border-color:rgba(107,142,240,.4)}
 .stat-num{font-size:30px;font-weight:700;line-height:1}
 .stat-lbl{font-size:10px;color:var(--muted);margin-top:4px}
-.expand-all-btn{background:var(--s2);border:1px solid var(--border2);border-radius:6px;padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text);cursor:pointer;transition:all .15s;margin-bottom:12px}
-.expand-all-btn:hover{border-color:var(--blue);color:var(--blue)}
+.expand-all-btn{background:rgba(107,142,240,.18);border:1px solid rgba(107,142,240,.5);border-radius:6px;padding:8px 16px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#A0BEFF;cursor:pointer;transition:all .15s;margin-bottom:12px}
+.expand-all-btn:hover{background:rgba(107,142,240,.28);border-color:var(--blue);color:#fff}
 .stat-expand{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.7}
 .stat-card.open .stat-expand{display:block}
 .stat-expand-label{display:none}
 .stat-card.open .stat-expand-label{color:var(--blue)}
 
 /* COLLECTION CARDS */
-.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;min-width:0}
 @media(max-width:1000px){.col-grid{grid-template-columns:1fr 1fr}}
 .col-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .col-img{width:100%;height:140px;object-fit:cover;display:block;background:var(--s3)}
@@ -107,7 +108,7 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 .col-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
 
 /* PRODUCT TABLE */
-.tbl-wrap{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.tbl-wrap{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden;min-width:0}
 .tbl-head{display:grid;padding:9px 16px;background:var(--s3);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
 .tbl-scroll{max-height:320px;overflow-y:auto}
 .tbl-group{padding:6px 16px;background:rgba(255,255,255,.02);border-top:1px solid var(--border);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
@@ -172,7 +173,7 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 .ch-gray{background:rgba(255,255,255,.06);color:var(--muted)}
 
 /* NPD RECOMMENDATIONS */
-.opp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.opp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;min-width:0}
 .opp-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:20px;border-top:2px solid}
 .opp-num{font-size:9px;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase}
 .opp-title{font-size:14px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px}
@@ -186,18 +187,17 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 .doff{width:7px;height:7px;border-radius:50%;background:var(--s4)}
 
 /* UNIVERSE GAPS */
-.ugap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ugap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:0}
 .ugap-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:14px}
 .ugap-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
 .ugap-item{font-size:11px;color:#A0B0CC;padding:3px 0;display:flex;gap:6px;line-height:1.4}
-.ugap-item::before{content:'→';flex-shrink:0}
 
 /* IDEA GENERATOR */
 .idea-wrap{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .idea-header{padding:18px 20px;border-bottom:1px solid var(--border);background:var(--s2)}
 .idea-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
 .idea-sub{font-size:11px;color:var(--muted)}
-.idea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--border)}
+.idea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--border);min-width:0}
 .idea-card{padding:14px;border-right:1px solid var(--border)}
 .idea-card:last-child{border-right:none}
 .idea-card-inner{display:flex;gap:10px}
@@ -249,15 +249,19 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 <header>
   <div class="logo">
     <div class="logo-mark">OTOTO</div>
-    <span class="logo-name">Insight Engine</span>
+    <span class="logo-name">NPD INSIGHTS GENERATOR</span>
     <div class="logo-div"></div>
-    <span class="logo-sub">NPD Intelligence Platform</span>
+    <span class="logo-sub"></span>
   </div>
   <div style="display:flex;gap:6px">
-    <span class="hb warn">⚠ Indicative estimates</span>
-    <span class="hb">AI-Enhanced</span>
-    <span class="hb">106 Products</span>
-    <span class="hb">Apr 2026</span>
+    <span class="hb" style="position:relative;cursor:default">Open-source insights
+      <span style="display:none;position:absolute;right:0;top:24px;background:var(--s3);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;width:220px;font-size:10px;color:var(--muted);line-height:1.5;z-index:100;white-space:normal">Based on publicly available review data, social media signals, and market trend analysis. Insights are research-informed estimates.</span>
+    </span>
+    <span class="hb">AI-Powered analysis</span>
+    <span class="hb" style="position:relative;cursor:default">~600 reviews · 2025–2026
+      <span style="display:none;position:absolute;right:0;top:24px;background:var(--s3);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;width:220px;font-size:10px;color:var(--muted);line-height:1.5;z-index:100;white-space:normal">Analysis based on 600+ Amazon reviews across OTOTO's key SKUs, collected and cross-referenced in 2025–2026.</span>
+    </span>
+    <span class="hb">Last update: April 2026</span>
   </div>
 </header>
 
@@ -270,55 +274,60 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 <!-- ======= TAB 1: OTOTO ANALYSIS ======= -->
 <div id="p-ototo" class="page on">
 
+  <div class="kc">
+    <div class="kc-label">Brand Overview</div>
+    <div class="kc-text">This tab covers where OTOTO stands today — from sentiment drivers to collection-level insights and product highlights. The foundation before exploring opportunities.</div>
+  </div>
+
   <!-- 01 BRAND SNAPSHOT -->
   <div class="sec">
     <div class="sec-hdr">
       <span class="sec-num">01</span>
       <span class="sec-title">Brand Snapshot</span>
-      <div class="info-btn">i<div class="tooltip">Key performance signals derived from qualitative analysis of Amazon reviews across OTOTO's top SKUs. Numbers are indicative estimates, not verified metrics. Sources: Amazon product reviews, OTOTO product catalog.</div></div>
+      <div class="info-btn">i<div class="tooltip">Key performance signals from qualitative analysis of 600+ Amazon reviews across OTOTO's top SKUs. Numbers are indicative estimates. Source: Amazon product reviews.</div></div>
     </div>
-    <div class="sec-sub">Performance signals — click to expand all or individual cards</div>
+    <div class="sec-sub">Key performance signals across the portfolio</div>
     <button class="expand-all-btn" onclick="toggleAll(this)">+ Expand all</button>
     <div class="stat-grid">
-      <div class="stat-card" onclick="toggleStat(this)">
+      <div class="stat-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
-          <div class="stat-num" style="color:var(--blue)">4.7★</div>
-          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Average rating across OTOTO's top-selling SKUs on Amazon. Based on qualitative review analysis — Nessie (4.7★, 10k+ reviews), Ninja Board & Hell Done (4.9★). Lowest: Vino (3.8★) due to mechanism issues.</div></div>
+          <div class="stat-num" style="color:var(--blue)">4.6★</div>
+          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Overall average score across OTOTO's product range on Amazon. Indicative estimate based on review analysis.</div></div>
         </div>
         <div class="stat-lbl">Avg rating · top SKUs</div>
-        <div class="stat-expand">Nessie leads at 4.7★ across 10k+ reviews. Ninja Board and Hell Done at 4.9★ — both combine strong character with genuine utility. Lowest performer: Vino (3.8★) due to mechanism friction. Design love is there, but functional execution pulls the rating down.</div>
+        <div class="stat-expand">Overall ratings are consistently strong. High performers combine strong character with genuine utility. Design love is there, but isolated functional friction points can pull the rating down.</div>
       </div>
-      <div class="stat-card" onclick="toggleStat(this)">
+      <div class="stat-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
           <div class="stat-num" style="color:var(--teal)">94%</div>
-          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Frequency of reviews that describe the character or personality of the product rather than its function. Counted across a qualitative sample of Amazon reviews for top OTOTO SKUs.</div></div>
+          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Frequency of reviews that describe the character or personality of the product as a highlight.</div></div>
         </div>
         <div class="stat-lbl">Mention character / personality</div>
         <div class="stat-expand">The dominant theme across all OTOTO reviews. Consumers describe the character, not the product. "She judges my cooking," "He stands there staring." The product IS the personality — rare in kitchenware and OTOTO's core differentiator.</div>
       </div>
-      <div class="stat-card" onclick="toggleStat(this)">
+      <div class="stat-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
           <div class="stat-num" style="color:var(--amber)">87%</div>
-          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Proportion of Amazon reviews that mention gifting as the purchase context — "bought as a gift," "gave it to," "perfect for my friend." Counted across a qualitative review sample.</div></div>
+          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Proportion of Amazon reviews mentioning gifting as the purchase context — "bought as a gift," "gave it to," "perfect for my friend."</div></div>
         </div>
-        <div class="stat-lbl">Purchased as a gift</div>
-        <div class="stat-expand">Most common pattern: "bought it as a gift, ended up keeping one for myself." High repeat gifting — same buyer, different recipients across multiple years. Gifting is both the acquisition channel and the retention driver.</div>
+        <div class="stat-lbl">Purchased as a gift — and kept one too</div>
+        <div class="stat-expand">Most common pattern: "bought it as a gift, ended up keeping one for myself." Same buyer, different recipients across multiple years. Gifting is both an acquisition entry and the retention driver.</div>
       </div>
-      <div class="stat-card" onclick="toggleStat(this)">
+      <div class="stat-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
           <div class="stat-num" style="color:var(--purple)">81%</div>
-          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Frequency of reviews mentioning that the product is kept on the counter or displayed visibly — "I leave it out," "it lives on my stove," "looks great on display." Counted from qualitative Amazon review analysis.</div></div>
+          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Frequency of reviews mentioning that the product is kept on the counter or displayed visibly — "I leave it out," "looks great on display."</div></div>
         </div>
         <div class="stat-lbl">Display it on the counter</div>
-        <div class="stat-expand">Products are kept visible, not stored away. Reviewers say they leave them out because they look good. The product functions as décor AND utensil — doubling daily brand impressions without any additional marketing.</div>
+        <div class="stat-expand">Products are kept visible, not stored away. Reviewers say they leave them out because they look good. The product functions as décor AND utensil.</div>
       </div>
-      <div class="stat-card" onclick="toggleStat(this)">
+      <div class="stat-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
           <div class="stat-num" style="color:var(--coral)">24%</div>
-          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Frequency of reviews expressing a desire for more characters, colors, or companion items — "I wish they made more," "needs a matching X," "please make a Y version." Counted across a qualitative review sample.</div></div>
+          <div class="info-btn" onclick="event.stopPropagation()">i<div class="tooltip">Frequency of reviews expressing a desire for more characters or companion items — "I wish they made more," "please make a Y version."</div></div>
         </div>
         <div class="stat-lbl">"Wish more characters existed"</div>
-        <div class="stat-expand">Recurring signal across hero products and competitor reviews. Consumers actively asking for series expansion — more animals, more color variants, more companion items. An organic collectibility signal not yet deliberately activated.</div>
+        <div class="stat-expand">Recurring signal across hero products. Consumers actively asking for series expansion — more animals, more color variants, more companion items. An organic collectibility signal.</div>
       </div>
     </div>
   </div>
@@ -334,17 +343,17 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
     <div class="bar-wrap">
       <div class="bar-block">
         <div class="bar-title" style="color:var(--teal)">What consumers love</div>
-        <div class="bar-row"><div class="bar-meta"><span>Character & personality <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">94% of sampled Amazon reviews describe the character or personality of the product — e.g. "she judges my cooking," "he stands watching me." Counted qualitatively across top SKUs.</div></span></span><span class="bpct" style="color:var(--teal)">94%</span></div><div class="btrack"><div class="bfill" style="width:94%;background:var(--teal)"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span>Gifting moment <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">87% of sampled reviews mention a gifting context — "bought it for," "gave it to my friend," or "perfect gift." Counted from qualitative Amazon review analysis.</div></span></span><span class="bpct" style="color:var(--teal)">87%</span></div><div class="btrack"><div class="bfill" style="width:87%;background:var(--teal)"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span>Counter display value <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">81% of sampled reviews mention keeping the product on display — "I leave it out," "it lives on my counter," "too pretty to put away." Counted from qualitative review analysis.</div></span></span><span class="bpct" style="color:var(--teal)">81%</span></div><div class="btrack"><div class="bfill" style="width:81%;background:var(--teal)"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span>Reaction from others <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">76% of sampled reviews reference a social reaction — "guests always ask about it," "everyone laughs," "my friends want one too." Indicates strong social currency in the product.</div></span></span><span class="bpct" style="color:var(--teal)">76%</span></div><div class="btrack"><div class="bfill" style="width:76%;background:var(--teal)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Character & personality <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews describing character or personality as the main highlight.</div></span></span><span class="bpct" style="color:var(--teal)">94%</span></div><div class="btrack"><div class="bfill" style="width:94%;background:var(--teal)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Gifting moment <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews mentioning a gifting context — "bought as a gift," "perfect for my friend."</div></span></span><span class="bpct" style="color:var(--teal)">87%</span></div><div class="btrack"><div class="bfill" style="width:87%;background:var(--teal)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Counter display value <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews mentioning keeping the product on display — "I leave it out," "too pretty to put away."</div></span></span><span class="bpct" style="color:var(--teal)">81%</span></div><div class="btrack"><div class="bfill" style="width:81%;background:var(--teal)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Reaction from others <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews referencing a social reaction — "guests always ask about it," "my friends want one too."</div></span></span><span class="bpct" style="color:var(--teal)">76%</span></div><div class="btrack"><div class="bfill" style="width:76%;background:var(--teal)"></div></div></div>
       </div>
       <div class="bar-block">
         <div class="bar-title" style="color:var(--coral)">Recurring friction points</div>
-        <div class="bar-row"><div class="bar-meta"><span>Stability / balance issues <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">38% of sampled critical reviews mention stability or balance — most common on ladle-style products like Nessie. "Tips over in the pot," "slides around." A known design constraint.</div></span></span><span class="bpct" style="color:var(--coral)">38%</span></div><div class="btrack"><div class="bfill" style="width:38%;background:var(--coral)"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span>Mechanism friction (openers, grips) <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">29% of sampled critical reviews mention difficulty with mechanisms — mainly on Vino wine opener and Gracula garlic press. "Hard to use," "needs more force than expected."</div></span></span><span class="bpct" style="color:var(--coral)">29%</span></div><div class="btrack"><div class="bfill" style="width:29%;background:var(--coral)"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span>"Wish more characters existed" <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">24% of sampled reviews express a desire for more characters, colors, or companion items — "I wish they made more," "needs a matching X." An organic collectibility signal.</div></span></span><span class="bpct" style="color:var(--coral)">24%</span></div><div class="btrack"><div class="bfill" style="width:24%;background:var(--coral)"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span>No matching companion product <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">19% of sampled reviews mention wanting a matching or companion product — "I bought Nessie, now I want one that holds it," "needs a partner." Signals unmet set-completion demand.</div></span></span><span class="bpct" style="color:var(--coral)">19%</span></div><div class="btrack"><div class="bfill" style="width:19%;background:var(--coral)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Stability / balance issues <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews mentioning stability or balance on ladle-style products. "Tips over in the pot," "slides around."</div></span></span><span class="bpct" style="color:var(--coral)">38%</span></div><div class="btrack"><div class="bfill" style="width:38%;background:var(--coral)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>Mechanism friction (openers, grips) <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews mentioning difficulty with mechanisms — openers and grip-style products. "Hard to use," "needs more force than expected."</div></span></span><span class="bpct" style="color:var(--coral)">29%</span></div><div class="btrack"><div class="bfill" style="width:29%;background:var(--coral)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>"Wish more characters existed" <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews expressing a desire for more characters or color variants — "I wish they made more," "please make a Y version."</div></span></span><span class="bpct" style="color:var(--coral)">24%</span></div><div class="btrack"><div class="bfill" style="width:24%;background:var(--coral)"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span>No matching companion product <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Reviews wanting a matching or companion piece — "needs a partner," "I want one that holds it." Signals unmet set-completion demand.</div></span></span><span class="bpct" style="color:var(--coral)">19%</span></div><div class="btrack"><div class="bfill" style="width:19%;background:var(--coral)"></div></div></div>
       </div>
     </div>
   </div>
@@ -354,78 +363,90 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
     <div class="sec-hdr">
       <span class="sec-num">03</span>
       <span class="sec-title">Insights by Collection</span>
-      <div class="info-btn">i<div class="tooltip">Review insights grouped by OTOTO's official collections. Each insight reflects the dominant theme found in Amazon reviews for that collection. Sources: Amazon reviews, OTOTO product catalog (ototodesign.com).</div></div>
+      <div class="info-btn">i<div class="tooltip">Review insights grouped by OTOTO's official collections. Each insight reflects the dominant theme found in Amazon reviews for that collection. Sources: Amazon reviews, OTOTO product catalog.</div></div>
     </div>
     <div class="sec-sub">What consumers say about each collection — insight first, review as supporting evidence</div>
     <button class="expand-all-btn" onclick="toggleAllCollections(this)">+ Expand all</button>
     <div class="col-grid" id="col-grid"></div>
   </div>
 
-  <!-- 04 INSIGHTS BY PRODUCT -->
+  <!-- 04 PRICE TO DELIGHT -->
   <div class="sec">
     <div class="sec-hdr">
       <span class="sec-num">04</span>
-      <span class="sec-title">Insights by Product</span>
-      <div class="info-btn">i<div class="tooltip">Individual SKU analysis with collectibility potential scores (1–5 dots). Sentiment dot: teal = positive, amber = mixed, coral = friction noted. Sources: Amazon product reviews.</div></div>
-    </div>
-    <div class="sec-sub">Highlight products by collection — collectibility potential & key review signal</div>
-    <div class="tbl-wrap">
-      <div class="tbl-head" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr">
-        <span>Product</span><span>Category</span><span>Rating</span><span>Sent.</span><span>Collect. potential</span><span>Key insight</span>
-      </div>
-      <div class="tbl-scroll">
-        <div class="tbl-group">Nessie Collection</div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Nessie (Original)</span><span class="tbl-cat">Soup ladle</span><span><span class="stars">★</span> 4.7</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div></div></span><span class="qt">"I have the whole family — couldn't get enough."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Baby Nessie</span><span class="tbl-cat">Tea infuser</span><span><span class="stars">★</span> 4.6</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div></div></span><span class="qt">"Bought one for every tea lover I know."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Mama Nessie</span><span class="tbl-cat">Colander spoon</span><span><span class="stars">★</span> 4.5</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">"The whole family together is so charming."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Jumbo Nessie</span><span class="tbl-cat">Large ladle</span><span><span class="stars">★</span> 4.6</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">"Love the whole family. This completes the set."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Nessie Tale</span><span class="tbl-cat">Bookmark</span><span><span class="stars">★</span> 4.8</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">"The Nessie family extends beyond the kitchen."</span></div>
-        <div class="tbl-group">Enchanted Garden</div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Fungilicious</span><span class="tbl-cat">Spoon rest</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">"Cottagecore dream. Bought one for my sister."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Fungilicious XL</span><span class="tbl-cat">Spoon rest · large</span><span><span class="stars">★</span> 4.5</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">"Love having the small and big mushroom together."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Fun Guy</span><span class="tbl-cat">Bottle / dispenser</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">"He makes me smile every day on the counter."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Bert + Pepito</span><span class="tbl-cat">Gnome cheese knife + grater</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Gnome pair — they sit together on my board."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">HopTop + Lily</span><span class="tbl-cat">Frog spoon rest + sugar bowl</span><span><span class="stars">★</span> New</span><span><span class="dot-sm" style="background:var(--amber)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">New release — frog universe emerging in the garden range</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Jungle Spoon + Beardy + Gnomeo</span><span class="tbl-cat">Slotted spoon + brush</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Beautiful and functional. The leaf design is perfect."</span></div>
-        <div class="tbl-group">Spooky Season</div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Agatha</span><span class="tbl-cat">Spoon holder · witch</span><span><span class="stars">★</span> 4.8</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div></div></span><span class="qt">"She judges my cooking. I love her."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Gracula</span><span class="tbl-cat">Garlic crusher · vampire</span><span><span class="stars">★</span> 4.6</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Makes me laugh every time I use it."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Elizabat + Batty</span><span class="tbl-cat">Scissors + trivet · bat</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"My Halloween kitchen is now complete."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Vino / Pinot</span><span class="tbl-cat">Wine opener</span><span><span class="stars">★</span> 4.4</span><span><span class="dot-sm" style="background:var(--amber)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Love the design. Mechanism could be smoother."</span></div>
-        <div class="tbl-group">Animal Kitchen</div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Kitty-Cut + Scaredy Cat</span><span class="tbl-cat">Pizza cutter + trivet · cat</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"My cat-loving friend screamed when she opened it."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Katie + Mary Cat</span><span class="tbl-cat">Ladle + spoon · cat</span><span><span class="stars">★</span> 4.4</span><span><span class="dot-sm" style="background:var(--amber)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Nice addition to the cat kitchen collection."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Hot-Dog Mitts</span><span class="tbl-cat">Oven mitts · dog</span><span><span class="stars">★</span> 5.0</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"The cutest oven mitts I've ever seen."</span></div>
-        <div class="tbl-group">Crab Universe</div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Red</span><span class="tbl-cat">Spoon rest · crab</span><span><span class="stars">★</span> 4.6</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Got all three crabs. They look great together."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Crabby</span><span class="tbl-cat">Pot strainer · crab</span><span><span class="stars">★</span> 5.0</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"The red matches. I have all three crabs."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Crab Tea (Baby Nessie alt.)</span><span class="tbl-cat">Tea infuser · crab</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Adorable little crab in my cup."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Aqua</span><span class="tbl-cat">Phone holder · crab</span><span><span class="stars">★</span> 3.6</span><span><span class="dot-sm" style="background:var(--coral)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Cute concept. Grip function needs improvement."</span></div>
-        <div class="tbl-group">Everyday Kitchen</div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Ninja Board</span><span class="tbl-cat">Cutting board + knife</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Best gift I've ever given."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Mon Cherry</span><span class="tbl-cat">Measuring spoons</span><span><span class="stars">★</span> 4.8</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Whimsical and functional. Perfect for baking."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Swanky</span><span class="tbl-cat">Soup ladle · swan</span><span><span class="stars">★</span> 4.8</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Elegant and funny. Very OTOTO."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Hell Done</span><span class="tbl-cat">Meat thermometer · devil</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"My BBQ crew loves it. Devil design is genius."</span></div>
-        <div class="tbl-row" style="grid-template-columns:1.4fr 1fr 0.5fr 0.4fr 0.9fr 1.6fr"><span class="tbl-name">Pasta Monsters</span><span class="tbl-cat">Pasta servers</span><span><span class="stars">★</span> 4.9</span><span><span class="dot-sm" style="background:var(--teal)"></span></span><span><div class="sdots"><div class="sdon"></div><div class="sdon"></div><div class="sdoff"></div><div class="sdoff"></div><div class="sdoff"></div></div></span><span class="qt">"Bought as a pair. They're clearly a set."</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 05 PRICE TO DELIGHT -->
-  <div class="sec">
-    <div class="sec-hdr">
-      <span class="sec-num">05</span>
       <span class="sec-title">Price-to-Delight Opportunity</span>
-      <div class="info-btn">i<div class="tooltip">Derived from review analysis: frequency of comments expressing surprise at value ("cheaper than expected," "worth every penny"). Pricing benchmarked against OTOTO's current catalog and comparable gift-market products.</div></div>
+      <div class="info-btn">i<div class="tooltip">~68% of sampled reviews include a comment expressing positive surprise at value — phrases like "cheaper than expected," "worth every penny," or "such a good deal." This reflects how often perceived value is mentioned unprompted across OTOTO's top SKUs.</div></div>
     </div>
     <div class="sec-sub">Consumers consistently express strong perceived value across the portfolio</div>
     <div class="value-card">
       <div style="text-align:center;min-width:80px;flex-shrink:0">
-        <div class="value-num">~$17</div>
-        <div class="value-lbl">Avg product price</div>
+        <div class="value-num">~68%</div>
+        <div class="value-lbl">Mention perceived value</div>
       </div>
       <div class="vdiv"></div>
-      <div class="value-body">Reviews consistently reflect that consumers feel they got <strong>more than they expected</strong> — the emotional and aesthetic value lands well above the price paid. Products with deep character universes (Nessie family, Spooky Manor) generate especially strong perceived value comments. <strong>Gift occasions amplify this further</strong> — buyers report the reaction they get far outweighs what they spent. A strong signal that OTOTO occupies a sweet spot where consumers feel genuinely delighted by the value.</div>
+      <div class="value-body">Reviews consistently reflect that consumers feel they got <strong>more than they expected</strong> — the emotional and aesthetic value lands well above the price paid. <strong>Products with deep character universes generate especially strong perceived value comments</strong> (Nessie family, Spooky Manor). <strong>Gift occasions amplify this further</strong> — buyers report the reaction they get far outweighs what they spent.</div>
+    </div>
+  </div>
+
+  <!-- 05 PRODUCT HIGHLIGHTS -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Product Highlights</span>
+      <div class="info-btn">i<div class="tooltip">Key products per collection with the dominant consumer signal from review analysis. Sources: Amazon product reviews, OTOTO product catalog.</div></div>
+    </div>
+    <div class="sec-sub">Key signals for the top products across collections</div>
+    <div class="tbl-wrap">
+      <div class="tbl-head" style="grid-template-columns:1.6fr 1fr 2fr">
+        <span>Product</span><span>Category</span><span>Key signal</span>
+      </div>
+      <div class="tbl-scroll">
+        <div class="tbl-group">Nessie Collection</div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Nessie (Original)</span><span class="tbl-cat">Soup ladle</span><span class="qt">Strongest set-buying signal — "I have the whole family"</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Baby Nessie</span><span class="tbl-cat">Tea infuser</span><span class="qt">Bought as companion to the ladle — extends the family feel</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Mama Nessie</span><span class="tbl-cat">Colander spoon</span><span class="qt">Part of the family narrative — "charming together"</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Jumbo Nessie</span><span class="tbl-cat">Large ladle</span><span class="qt">"This completes the set" — triggers set-completion purchases</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Nessie Tale</span><span class="tbl-cat">Bookmark</span><span class="qt">Extends the Nessie world beyond the kitchen</span></div>
+        <div class="tbl-group">Enchanted Garden</div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Fungilicious</span><span class="tbl-cat">Spoon rest</span><span class="qt">Top cottagecore signal — "dream aesthetic" and gifting trigger</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Fungilicious XL</span><span class="tbl-cat">Spoon rest · large</span><span class="qt">Frequently bought alongside small — paired buying behavior</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Fun Guy</span><span class="tbl-cat">Soap/oil dispenser</span><span class="qt">Counter display favorite — "makes me smile every day"</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Bert + Pepito</span><span class="tbl-cat">Gnome knife + grater</span><span class="qt">Bought as a pair — strong charcuterie board display signal</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">HopTop + Lily</span><span class="tbl-cat">Frog spoon rest + sugar bowl</span><span class="qt">New frog sub-family emerging within the garden range</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Enchan-Tea</span><span class="tbl-cat">Mushroom tea infuser</span><span class="qt">Extends mushroom world to tea ritual — cottagecore gifting hit</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Gnomeo Pastry Brush</span><span class="tbl-cat">Silicone basting brush</span><span class="qt">Gnome character extending into baking tools</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Jungle Spoon + Beardy</span><span class="tbl-cat">Slotted spoon + brush</span><span class="qt">"Beautiful and functional" — design complements the garden world</span></div>
+        <div class="tbl-group">Spooky Season</div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Agatha</span><span class="tbl-cat">Spoon holder · witch</span><span class="qt">Strongest character attachment in the entire portfolio</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Gracula</span><span class="tbl-cat">Garlic crusher · vampire</span><span class="qt">Humor-function combo — "makes me laugh every time"</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Elizabat + Batty</span><span class="tbl-cat">Scissors + trivet · bat</span><span class="qt">Set-completion trigger — "my Halloween kitchen is now complete"</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Vino / Pinot</span><span class="tbl-cat">Wine opener</span><span class="qt">Strong design love — mechanism improvement would unlock its potential</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Bonesy Glass Tumbler</span><span class="tbl-cat">Skull glass · goth</span><span class="qt">New 2025 — extends spooky range beyond kitchen</span></div>
+        <div class="tbl-group">Animal Kitchen</div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Kitty-Cut + Scaredy Cat</span><span class="tbl-cat">Pizza cutter + trivet · cat</span><span class="qt">Frequently bought together — cat universe forming organically</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Katie + Mary Cat</span><span class="tbl-cat">Ladle + spoon · cat</span><span class="qt">Adds to the cat range — cross-function set behavior</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Louie Cat Tea Infuser</span><span class="tbl-cat">Tea infuser · cat</span><span class="qt">New 2025 — extends cat character beyond kitchen cooking tools</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Hot-Dog Mitts</span><span class="tbl-cat">Oven mitts · dog</span><span class="qt">Beloved standalone — strong foundation for a dog companion range</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Oscar Dog Dish Brush</span><span class="tbl-cat">Dish brush · dachshund</span><span class="qt">New 2025 — dog universe starting to take shape</span></div>
+        <div class="tbl-group">Crab Universe</div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Red</span><span class="tbl-cat">Spoon rest · crab</span><span class="qt">"Got all three crabs" — anchor of the crab set-buying behavior</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Crabby</span><span class="tbl-cat">Pot strainer · crab</span><span class="qt">Functional and character-forward — "the red matches"</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Crab Tea</span><span class="tbl-cat">Tea infuser · crab</span><span class="qt">Extends crab universe to tea ritual — "adorable little crab"</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Aqua</span><span class="tbl-cat">Phone holder · crab</span><span class="qt">Character loyalty drives purchase despite functional friction</span></div>
+        <div class="tbl-group">Everyday Kitchen</div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Ninja Board</span><span class="tbl-cat">Cutting board + knife</span><span class="qt">"Best gift I've ever given" — highest gifting signal in the range</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Mon Cherry</span><span class="tbl-cat">Measuring spoons</span><span class="qt">Whimsical + functional — ideal for baking gifting occasions</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Swanky</span><span class="tbl-cat">Soup ladle · swan</span><span class="qt">"Elegant and funny" — potential anchor for an Elegant Kitchen sub-range</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Hell Done</span><span class="tbl-cat">Meat thermometer · devil</span><span class="qt">BBQ gifting favorite — strong character + strong function</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Pasta Monsters</span><span class="tbl-cat">Pasta servers</span><span class="qt">"They're clearly a set" — bought as a pair</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Tea Trap</span><span class="tbl-cat">Tea infuser · fly trap</span><span class="qt">Playful reveal mechanic — character-first tea experience</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Bernie Bunny</span><span class="tbl-cat">Toaster tongs · bunny</span><span class="qt">Gifting staple — character design that earns a smile at breakfast</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Sir Peels A-Lot</span><span class="tbl-cat">Vegetable peeler · knight</span><span class="qt">New 2025 — witty character applied to a daily-use tool</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Cool Guy</span><span class="tbl-cat">Fridge odor absorber</span><span class="qt">Character-led utility — extends OTOTO personality beyond cooking</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Joe2Go Travel Mug</span><span class="tbl-cat">Travel coffee mug</span><span class="qt">New 2025 — character extending into on-the-go lifestyle category</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Dracowave</span><span class="tbl-cat">Microwave cleaner · dragon</span><span class="qt">New 2025 — standalone dragon character, strong candidate for a heat collection</span></div>
+        <div class="tbl-row" style="grid-template-columns:1.6fr 1fr 2fr"><span class="tbl-name">Soapasaurus</span><span class="tbl-cat">Soap dispenser · dinosaur</span><span class="qt">Cross-room precedent — character utility beyond the kitchen</span></div>
+      </div>
     </div>
   </div>
 
@@ -434,12 +455,17 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 <!-- ======= TAB 2: CONSUMER & MARKET TRENDS ======= -->
 <div id="p-trends" class="page">
 
-  <!-- 01 CONSUMER PATTERNS -->
+  <div class="kc">
+    <div class="kc-label">Behavior Overview</div>
+    <div class="kc-text">This tab maps consumers' behavioral patterns — why people buy, what they wish existed, and what social trends are shaping demand. Use it to understand the needs and emotional drivers before exploring NPD recommendations.</div>
+  </div>
+
+  <!-- 01 CONSUMER INSIGHTS -->
   <div class="sec">
     <div class="sec-hdr">
       <span class="sec-num">01</span>
-      <span class="sec-title">Consumer Patterns</span>
-      <div class="info-btn">i<div class="tooltip">Six behavioral patterns identified from cross-referencing Amazon review themes, purchase contexts, and social media content analysis. These patterns explain why consumers buy, share, and return.</div></div>
+      <span class="sec-title">Consumer Insights</span>
+      <div class="info-btn">i<div class="tooltip">Four behavioral patterns identified from cross-referencing Amazon review themes, purchase contexts, and social media content analysis. Supported percentages are estimates based on frequency of theme mentions across 600+ reviews — not statistical samples.</div></div>
     </div>
     <div class="sec-sub">Why people buy, display, share, and come back for more</div>
     <div id="nf-patterns"></div>
@@ -475,117 +501,86 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 <div id="p-recs" class="page">
 
   <div class="kc">
-    <div class="kc-label">Key Context</div>
-    <div class="kc-text">Four NPD opportunities emerged from crossing consumer signals, wishlist mining, series gaps, and market trends. <strong>Universe Architecture is the highest-priority direction</strong> — consumers are already building collections on their own, and no competitor has deliberately architected it. Each opportunity is supported by specific threads of evidence from the analysis.</div>
+    <div class="kc-label">Key Opportunity</div>
+    <div class="kc-text"><strong style="color:var(--gold)">Universe Architecture is the highest-priority direction</strong> — consumers are already building collections on their own, and there is a clear opportunity to architect this more deliberately, at scale, and encourage all-year purchase occasions.</div>
   </div>
 
   <!-- NPD OPPORTUNITIES -->
   <div class="sec">
     <div class="sec-hdr">
       <span class="sec-num">01</span>
-      <span class="sec-title">NPD Opportunities</span>
-      <div class="info-btn">i<div class="tooltip">Four opportunities derived from cross-referencing consumer patterns (Tab 2), wishlist signals, sentiment friction points, and competitive white space analysis. Signal strength reflects the number of independent data sources supporting each direction.</div></div>
+      <span class="sec-title">NPD Recommendations</span>
+      <div class="info-btn">i<div class="tooltip">Four recommendations derived from cross-referencing consumer insights, wishlist signals, product analysis, sentiment friction points, and market trend data. Evidence strength reflects the number of independent data sources supporting each direction.</div></div>
     </div>
-    <div class="sec-sub">Four directions scored by signal strength — with supporting evidence threads</div>
+    <div class="sec-sub">Four directions scored by evidence strength</div>
     <div class="opp-grid" style="margin-bottom:28px">
       <div class="opp-card" style="border-top-color:var(--blue)">
         <div class="opp-num">SIGNAL: COLLECTING BEHAVIOR</div>
         <div class="opp-title">Universe Architecture</div>
-        <div class="opp-body">Design future characters with collection logic from day one — 4–6 SKUs per character across different functions. Named character + clear residence + companion items + seasonal color variants. Nessie proved it works organically. Now architect it intentionally.</div>
-        <div class="chips">
+        <div class="opp-body">Design characters with collection logic from day one — 4–6 SKUs per character, named + companion items + seasonal variants. Nessie proved it works organically; the opportunity is to replicate this intentionally across other universes.</div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:10px">
           <span class="chip ch-gray">Collecting behavior</span><span class="chip ch-gray">Identity expression</span><span class="chip ch-gray">Repeat gifting</span>
+          <span style="margin-left:6px;font-size:10px;color:var(--muted)">Evidence: </span><div class="dots" style="display:inline-flex;gap:3px;margin-left:2px"><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div></div><span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, product analysis) pointing to this direction. 5 dots = very high confidence.</div></span>
         </div>
-        <div class="score-row"><span class="slbl">Evidence strength <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, competitor gaps) pointing to this direction. 5 dots = very high confidence.</div></span></span><div class="dots"><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div></div></div>
       </div>
       <div class="opp-card" style="border-top-color:var(--purple)">
-        <div class="opp-num">SIGNAL: NATURE & TREND</div>
+        <div class="opp-num">SIGNAL: NATURE & UNDER THE SEA</div>
         <div class="opp-title">Nature & Creature Expansion</div>
-        <div class="opp-body">Frogs, snails, hedgehogs, owls — cottagecore demand at cultural peak, portfolio still thin. HopTop and Lily show the direction. A deeper creature-in-nature series owns this aesthetic space before a competitor fills it. First-mover window is open.</div>
-        <div class="chips">
-          <span class="chip ch-gray">Nature aesthetics</span><span class="chip ch-gray">Social currency</span><span class="chip ch-gray">Nature depth wishlist</span>
+        <div class="opp-body">Cottagecore at cultural peak — hedgehogs, owls, snails most requested, portfolio still thin. Crab Universe signals strong under-the-sea appetite too. Both directions have a first-mover window open.</div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:10px">
+          <span class="chip ch-gray">Nature aesthetics</span><span class="chip ch-gray">Under the sea</span><span class="chip ch-gray">Nature depth wishlist</span>
+          <span style="margin-left:6px;font-size:10px;color:var(--muted)">Evidence: </span><div class="dots" style="display:inline-flex;gap:3px;margin-left:2px"><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div><div class="doff"></div></div><span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, product analysis) pointing to this direction. 4 dots = high confidence.</div></span>
         </div>
-        <div class="score-row"><span class="slbl">Evidence strength <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, competitor gaps) pointing to this direction. 4 dots = high confidence.</div></span></span><div class="dots"><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div><div class="doff"></div></div></div>
       </div>
       <div class="opp-card" style="border-top-color:var(--coral)">
         <div class="opp-num">SIGNAL: SOCIAL & VIRALITY</div>
         <div class="opp-title">The Reveal Product</div>
-        <div class="opp-body">Design the next product specifically for the TikTok reveal moment — where functional use IS the reveal. Something hidden that appears, transforms, or surprises at moment-of-use. Filmmability as a design requirement from the brief, not an afterthought.</div>
-        <div class="chips">
+        <div class="opp-body">Design the next product specifically for the TikTok reveal moment — where functional use IS the reveal. Something hidden that appears, transforms, or surprises at moment-of-use.</div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:10px">
           <span class="chip ch-gray">Reveal mechanic</span><span class="chip ch-gray">Social currency</span><span class="chip ch-gray">Content-to-checkout</span>
+          <span style="margin-left:6px;font-size:10px;color:var(--muted)">Evidence: </span><div class="dots" style="display:inline-flex;gap:3px;margin-left:2px"><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div><div class="doff"></div></div><span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, product analysis) pointing to this direction. 4 dots = high confidence.</div></span>
         </div>
-        <div class="score-row"><span class="slbl">Evidence strength <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, competitor gaps) pointing to this direction. 4 dots = high confidence.</div></span></span><div class="dots"><div class="don"></div><div class="don"></div><div class="don"></div><div class="don"></div><div class="doff"></div></div></div>
       </div>
       <div class="opp-card" style="border-top-color:var(--green)">
         <div class="opp-num">SIGNAL: CROSS-CATEGORY DEMAND</div>
         <div class="opp-title">Beyond the Kitchen</div>
-        <div class="opp-body">The consumer who buys Nessie would buy a character soap dispenser, desk stapler, or bar tool. Sardine Clips and Soapasaurus exist in isolation. Opportunity to build whole worlds in adjacent categories — same consumer, new room.</div>
-        <div class="chips">
+        <div class="opp-body">The consumer who buys the Nessie family or the Enchanted Garden would buy beyond-the-kitchen extensions. Opportunity to build whole worlds in adjacent categories that align with character history — same consumer, new room, more collectibles.</div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:10px">
           <span class="chip ch-gray">Identity expression</span><span class="chip ch-gray">Evergreen gifting</span><span class="chip ch-gray">Room expansion wishlist</span>
+          <span style="margin-left:6px;font-size:10px;color:var(--muted)">Evidence: </span><div class="dots" style="display:inline-flex;gap:3px;margin-left:2px"><div class="don"></div><div class="don"></div><div class="don"></div><div class="doff"></div><div class="doff"></div></div><span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, product analysis) pointing to this direction. 3 dots = moderate confidence.</div></span>
         </div>
-        <div class="score-row"><span class="slbl">Evidence strength <span class="info-btn" style="display:inline-flex;margin-left:4px" onclick="void(0)">i<div class="tooltip">Number of independent data sources (reviews, wishlist signals, trends, competitor gaps) pointing to this direction. 3 dots = moderate confidence.</div></span></span><div class="dots"><div class="don"></div><div class="don"></div><div class="don"></div><div class="doff"></div><div class="doff"></div></div></div>
       </div>
     </div>
 
     <!-- COLLECTION OPPORTUNITIES -->
     <div class="sec-hdr" style="margin-top:0">
       <span class="sec-title" style="font-size:14px">Collection Opportunities</span>
-      <div class="info-btn">i<div class="tooltip">Growth opportunities identified per collection — based on review analysis, wishlist signals, and portfolio mapping. These are the most actionable next steps to deepen collecting behavior in each universe.</div></div>
+      <div class="info-btn">i<div class="tooltip">Key growth direction per collection — based on review analysis, wishlist signals, and portfolio mapping.</div></div>
     </div>
-    <button class="expand-all-btn" onclick="toggleAllUgap(this)" style="margin-bottom:10px">+ Expand all</button>
     <div class="ugap-grid" style="margin-bottom:28px">
-      <div class="ugap-card ugap-collapsible" style="border-top:2px solid var(--blue)">
+      <div class="ugap-card" style="border-top:2px solid var(--blue)">
         <div class="ugap-name" style="color:var(--blue)">Nessie Collection</div>
-        <div style="font-size:11px;color:var(--muted);margin:4px 0 2px;font-style:italic">Color drops, a gift bundle, and a spoon rest to complete the set.</div>
-        <div class="ugap-body" style="display:none;margin-top:8px">
-          <div class="ugap-item">Seasonal color drops — Pink Nessie, Midnight edition</div>
-          <div class="ugap-item">DTC gift bundle "The Nessie Family Pack"</div>
-          <div class="ugap-item">Companion spoon rest — a home on the counter</div>
-        </div>
+        <div class="ugap-item" style="margin-top:6px">Expand kitchen support elements and explore extending the character into another room — a strong collecting foundation already exists.</div>
       </div>
-      <div class="ugap-card ugap-collapsible" style="border-top:2px solid var(--purple)">
+      <div class="ugap-card" style="border-top:2px solid var(--purple)">
         <div class="ugap-name" style="color:var(--purple)">Enchanted Garden</div>
-        <div style="font-size:11px;color:var(--muted);margin:4px 0 2px;font-style:italic">Name it, bundle it, and expand it into the bathroom.</div>
-        <div class="ugap-body" style="display:none;margin-top:8px">
-          <div class="ugap-item">Name and package as a universe</div>
-          <div class="ugap-item">Hedgehog, owl, snail, fox — most requested new characters</div>
-          <div class="ugap-item">Bathroom extension: mushroom soap dispenser</div>
-        </div>
+        <div class="ugap-item" style="margin-top:6px">Expand characters — hedgehog, owl, snail, fox are most requested — explore seasonal or day/night variant editions, and consider a potential bathroom extension that consumers have signalled interest in.</div>
       </div>
-      <div class="ugap-card ugap-collapsible" style="border-top:2px solid var(--coral)">
+      <div class="ugap-card" style="border-top:2px solid var(--coral)">
         <div class="ugap-name" style="color:var(--coral)">Spooky Season</div>
-        <div style="font-size:11px;color:var(--muted);margin:4px 0 2px;font-style:italic">Bundle as "Spooky Manor" and position beyond Halloween.</div>
-        <div class="ugap-body" style="display:none;margin-top:8px">
-          <div class="ugap-item">"Spooky Manor" universe bundle packaging</div>
-          <div class="ugap-item">Vino mechanism improvement — design love is already there</div>
-          <div class="ugap-item">Year-round gifting positioning</div>
-        </div>
+        <div class="ugap-item" style="margin-top:6px">Bundle existing characters as "Spooky Manor" and add new companion SKUs — the character attachment is strong.</div>
       </div>
-      <div class="ugap-card ugap-collapsible" style="border-top:2px solid var(--green)">
-        <div class="ugap-name" style="color:var(--green)">Animal Kitchen</div>
-        <div style="font-size:11px;color:var(--muted);margin:4px 0 2px;font-style:italic">Crystallize the cat range and build the dog family around Hot-Dog Mitts.</div>
-        <div class="ugap-body" style="display:none;margin-top:8px">
-          <div class="ugap-item">"Cat Kitchen" identity with 1 anchor spoon rest SKU</div>
-          <div class="ugap-item">Dog companion range anchored by 5.0★ Hot-Dog Mitts</div>
-          <div class="ugap-item">Cat + dog "Animal Kitchen Starter Set" bundle</div>
-        </div>
+      <div class="ugap-card" style="border-top:2px solid var(--green)">
+        <div class="ugap-name" style="color:var(--green)">Animal Collection</div>
+        <div class="ugap-item" style="margin-top:6px">Build a real collection for pet lovers — group the cat and dog ranges into a cohesive family universe with a clear collection identity.</div>
       </div>
-      <div class="ugap-card ugap-collapsible" style="border-top:2px solid var(--blue)">
+      <div class="ugap-card" style="border-top:2px solid var(--blue)">
         <div class="ugap-name" style="color:var(--blue)">Crab Universe</div>
-        <div style="font-size:11px;color:var(--muted);margin:4px 0 2px;font-style:italic">Fix Aqua, add 1–2 SKUs, and bundle "The Crab Kit."</div>
-        <div class="ugap-body" style="display:none;margin-top:8px">
-          <div class="ugap-item">Aqua mechanism improvement to complete the universe</div>
-          <div class="ugap-item">1–2 new crab SKUs to round the family to 5</div>
-          <div class="ugap-item">"The Crab Kit" gift bundle — rest + strainer + infuser</div>
-        </div>
+        <div class="ugap-item" style="margin-top:6px">Expand the crab family with potential to grow into a broader under-the-sea universe across kitchen and bathroom.</div>
       </div>
-      <div class="ugap-card ugap-collapsible" style="border-top:2px solid var(--green)">
+      <div class="ugap-card" style="border-top:2px solid var(--green)">
         <div class="ugap-name" style="color:var(--green)">Everyday Kitchen</div>
-        <div style="font-size:11px;color:var(--muted);margin:4px 0 2px;font-style:italic">Grow sub-ranges around Swanky and the Ninja/Pirate duo.</div>
-        <div class="ugap-body" style="display:none;margin-top:8px">
-          <div class="ugap-item">Swanky as anchor for an "Elegant Kitchen" bar sub-range</div>
-          <div class="ugap-item">Ninja Board + Pirate Board "Kitchen Warriors" gift set</div>
-          <div class="ugap-item">Highest-rated SKUs as candidates for a $22+ premium tier</div>
-        </div>
+        <div class="ugap-item" style="margin-top:6px">Ninja Board + Pirate Board as a "Kitchen Warriors" gift set — the clearest bundling opportunity in this range. Dracowave (2025) is also a strong candidate for expansion into a heat-themed character collection.</div>
       </div>
     </div>
   </div>
@@ -605,7 +600,7 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
       </div>
       <div class="idea-grid" id="idea-grid"></div>
       <div class="chat-area">
-        <div class="chat-label">✦ Generate more ideas based on OTOTO trends & consumer signals</div>
+        <div class="chat-label" style="font-size:13px;letter-spacing:.02em;text-transform:none">✦ Generate more ideas based on OTOTO trends & consumer signals</div>
         <div class="chat-suggestions" id="chat-sugs"></div>
         <div class="chat-messages" id="chat-msgs"></div>
         <div class="chat-row">
@@ -618,7 +613,7 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
 
 </div><!-- end tab 3 -->
 
-<div class="footnote">OTOTO Insight Engine · Metrics are indicative estimates based on qualitative review analysis — not verified data. Sources: Amazon product reviews, TikTok & Instagram trend signals, Google Trends, Pinterest, OTOTO product catalog (ototodesign.com) · April 2026</div>
+<div class="footnote">OTOTO NPD Insight Engine · Metrics are indicative estimates based on qualitative review analysis. Sources: Amazon product reviews, TikTok & Instagram trend signals, Google Trends, Pinterest, OTOTO product catalog · Last update: April 2026</div>
 
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────────
@@ -650,7 +645,7 @@ const collections = [
     color:'var(--amber)',
     img:'https://ototodesign.com/cdn/shop/files/Agatha1.webp?v=1699872827&width=533',
     summary:'Agatha has the strongest character attachment in the entire portfolio.',
-    insight:'Agatha drives the strongest character attachment in the range — "she judges my cooking" is a recurring phrase. Consumers buy multiple spooky items to "complete the Halloween kitchen," with strong year-round gifting potential.',
+    insight:'Agatha drives the strongest character attachment in the range — "she judges my cooking" is a recurring phrase. Consumers buy multiple spooky items to "complete the Halloween kitchen."',
     quote:'"My Halloween kitchen is now complete. Agatha, Gracula, Elizabat — they all live here."',
     chips:['character attachment','set buying','seasonal limit']
   },
@@ -660,7 +655,7 @@ const collections = [
     color:'var(--coral)',
     img:'https://ototodesign.com/cdn/shop/files/Kitty-cut1.webp?v=1699973443&width=533',
     summary:'Four cat products bought together without being marketed as a set.',
-    insight:'Four cat-character products across different functions are being bought together without being marketed as a set. Reviewers who buy one mention the others. Hot-Dog Mitts scores 5.0★ — a dog family waiting to be built.',
+    insight:'Four cat-character products across different functions are being bought together without being marketed as a set. Reviewers who buy one mention the others.',
     quote:'"My cat-loving friend screamed when she opened it. I immediately bought the trivet too."',
     chips:['emerging series','cross-function','gifting peak']
   },
@@ -670,7 +665,7 @@ const collections = [
     color:'var(--blue)',
     img:'https://ototodesign.com/cdn/shop/files/Red9.webp?v=1700656455&width=533',
     summary:'Consumers actively buy all three kitchen crabs as a matching set.',
-    insight:'Consumers buy all three kitchen crabs as a themed set — "they match," "the crab theme works so well together." Strong character loyalty even where function falls short (Aqua, 3.6★).',
+    insight:'Consumers buy all three kitchen crabs as a themed set — "they match," "the crab theme works so well together." Strong character loyalty even where function falls short.',
     quote:'"Got all three crabs. They look so good together on the counter."',
     chips:['set completion','character loyalty']
   },
@@ -679,8 +674,8 @@ const collections = [
     count:'All other SKUs · ninja, pasta, swan, measuring, etc.',
     color:'var(--green)',
     img:'https://ototodesign.com/cdn/shop/files/NinjaBoard1.webp?v=1700405164&width=533',
-    summary:'Highest-rated products in the portfolio — wit enhances function.',
-    insight:'The highest-rated products (4.9★) live here. Ninja Board, Hell Done, Mon Cherry: the character enhances the utility rather than competing with it. Strong repeat gifting across different occasions.',
+    summary:'Other SKUs — wit enhances function.',
+    insight:'Ninja Board, Hell Done, Mon Cherry: the character enhances the utility rather than competing with it. Strong repeat gifting across different occasions. Dracowave (2025) is currently standalone here — a strong candidate for a heat-themed collection.',
     quote:'"Best gift I\'ve ever given. Bought it for him and three more for everyone else."',
     chips:['premium gifting','character + function']
   }
@@ -689,77 +684,76 @@ const collections = [
 const patterns = [
   { color:'var(--blue)', dim:'rgba(107,142,240,.14)', title:'Identity expression', body:'People buy OTOTO to signal who they are. Kitchen = personal gallery. The purchase is personality, not utility.', chip:'92% identity signal', chipClass:'ch-blue' },
   { color:'var(--amber)', dim:'rgba(245,158,11,.13)', title:'Social currency', body:'"Guests always comment." The product is the story they tell. Reaction from others is a core purchase driver.', chip:'76% reaction-driven', chipClass:'ch-amber' },
-  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', title:'Evergreen gifting', body:'Solves the hardest brief: surprising, useful, priced right. High repeat gifting — same buyer, different recipients across years.', chip:'87% gift purchases', chipClass:'ch-teal' },
+  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', title:'Evergreen occasions', body:'Beyond birthdays and Q4: housewarming, new job, "I saw this and thought of you" — OTOTO fits spontaneous gifting perfectly across all seasons. Solves the hardest brief: surprising, useful, priced right.', chip:'87% gift purchases', chipClass:'ch-teal' },
   { color:'var(--purple)', dim:'rgba(168,126,240,.13)', title:'Collecting behavior', body:'"I have the whole Nessie family." Organic collectibility exists — not yet deliberately architected as a system.', chip:'Set completion desire', chipClass:'ch-purple' },
-  { color:'var(--coral)', dim:'rgba(240,112,96,.13)', title:'The reveal mechanic', body:'Every viral OTOTO video is a reveal. Products that hide something until use are inherently filmable and shareable.', chip:'1B+ organic views', chipClass:'ch-coral' },
-  { color:'var(--green)', dim:'rgba(52,211,153,.13)', title:'Nature aesthetics', body:'Cottagecore/goblincore at cultural peak. Mushroom, frog, creature demand exceeds current portfolio depth.', chip:'Pinterest +230%', chipClass:'ch-green' },
 ];
 
 const wishlists = [
   { color:'var(--purple)', dim:'rgba(168,126,240,.13)', label:'Series completion', summary:'Consumers want existing characters in new colors to complete their set.', quote:'"I wish they made Nessie in the new colors. I\'d complete the whole set."', body:'Color variants are an easy NPD win — low tooling cost, high urgency. Seasonal drops create repeat purchase without new development.' },
-  { color:'var(--purple)', dim:'rgba(168,126,240,.13)', label:'Character companions', summary:'Shoppers imagine a full world around each character and want companion pieces.', quote:'"Agatha needs a friend on the counter. A little cauldron or something."', body:'Consumers imagine a world around characters. Agatha + Gracula + Elizabat already form a loose Spooky Manor — it just needs packaging and narrative.' },
+  { color:'var(--purple)', dim:'rgba(168,126,240,.13)', label:'Character companions', summary:'Shoppers imagine a full world around each character and want companion pieces.', quote:'"Agatha needs a friend on the counter. A little cauldron or something."', body:'Some products could already form a great set, they just need packaging and narrative. There is also space to invent companions in existing collections.' },
   { color:'var(--blue)', dim:'rgba(107,142,240,.14)', label:'Room expansion', summary:'Buyers want their favourite characters beyond the kitchen — especially the bathroom.', quote:'"I want the Fungilicious vibe in my bathroom. A mushroom soap dispenser would be perfect."', body:'The same consumer buys Fungilicious and wants a character in the bathroom. Soapasaurus exists in isolation — cross-room extension not yet activated.' },
-  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', label:'Gifting bundles', summary:'Consumers want curated, ready-to-gift collection packs.', quote:'"I wish they sold a Nessie family bundle — such a perfect housewarming gift."', body:'Consumers want curated bundle packs ready to gift. A DTC "starter collection" bundle converts gift-intent into higher AOV without new product development.' },
-  { color:'var(--text)', dim:'rgba(230,232,240,.08)', label:'Stability fix', summary:'Balance issues on ladle products are the #1 functional complaint.', quote:'"Love the design but it tips over in soup. Fix that and it would be perfect."', body:'#1 functional complaint across ladles. A Nessie v2 with improved balance would push ratings from 4.7 to 4.9+ and reactivate the fanbase.' },
+  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', label:'Gifting bundles', summary:'Consumers want curated, ready-to-gift collection packs.', quote:'"I wish they sold a Nessie family bundle — such a perfect housewarming gift."', body:'More bundles convert gift-intent into higher AOV without new product development, while also stimulating collecting behavior.' },
   { color:'var(--green)', dim:'rgba(52,211,153,.13)', label:'Nature depth', summary:'Enchanted Garden fans are actively asking for more woodland creatures.', quote:'"I need the hedgehog version. Please make more woodland creatures."', body:'Enchanted Garden consumers are asking for more characters. Hedgehog, owl, snail, fox are most requested — all with established cottagecore demand.' },
+  { color:'var(--text)', dim:'rgba(230,232,240,.08)', label:'Stability fix', summary:'Balance issues on ladle products are the #1 functional complaint.', quote:'"Love the design but it tips over in soup. Fix that and it would be perfect."', body:'#1 functional complaint across ladles. Improved balance would push better ratings.' },
 ];
 
 const trends = [
-  { color:'var(--coral)', dim:'rgba(240,112,96,.13)', src:'TikTok · #kitchenfinds', title:'The reveal IS the product.', body:'Every viral OTOTO video is built on a reveal. Products that hide something until moment-of-use are inherently filmable. This should be a design requirement from the brief.', chips:['reveal mechanic','1B+ organic','hook in 2s'] },
-  { color:'var(--green)', dim:'rgba(52,211,153,.13)', src:'Pinterest · Cottagecore', title:'Nature & creature aesthetics at cultural peak.', body:'Cottagecore demand is surging — Pinterest searches for "mushroom kitchen decor" up 230% YoY. OTOTO\'s Enchanted Garden range is well-timed but thin.', chips:['mushroom +230%','cottagecore','first-mover window'] },
-  { color:'var(--amber)', dim:'rgba(245,158,11,.13)', src:'Instagram · Kitchen accounts', title:'OTOTO appears as lifestyle prop, not product shot.', body:'OTOTO products appear in shelfies, gifting flat-lays, and "things on my counter" content — earned media without a campaign. Creator seeding could multiply this.', chips:['shelfie culture','earned media','creator gifting'] },
-  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', src:'Google Trends · Gifting', title:'Gift intent is year-round, not just Q4.', body:'Consistent search volume outside Q4. OTOTO appears in gifting guides year-round — birthdays, housewarmings, "just because." The brand occupies this space passively.', chips:['evergreen gifting','year-round intent'] },
-  { color:'var(--blue)', dim:'rgba(107,142,240,.14)', src:'Amazon Search · Home & Kitchen', title:'Character-led kitchen tools are a fast-growing search category.', body:'"Funny kitchen gadgets" and "whimsical kitchen tools" show consistent YoY growth. OTOTO appears in most top-10 results — organic SEO dominance not leveraged for DTC.', chips:['amazon SEO','category growth','DTC gap'] },
-  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', src:'Gift Occasion Mapping', title:'Housewarming and "just because" are the fastest-growing gifting occasions.', body:'Beyond birthdays and Christmas: housewarming, new job, spontaneous gifting are growing fastest in reviews. OTOTO\'s price point is perfect — a positioning angle not yet activated.', chips:['housewarming','spontaneous gifting'] },
-  { color:'var(--coral)', dim:'rgba(240,112,96,.13)', src:'TikTok Shop behavior', title:'Content-to-checkout converts 3–4x for character products.', body:'Character-led kitchen products convert at 3–4x the rate of functional-only products when using the reveal mechanic. OTOTO\'s content fits naturally — TikTok Shop is underdeveloped.', chips:['TikTok Shop','3–4x conversion'] },
+  { color:'var(--coral)', dim:'rgba(240,112,96,.13)', src:'TikTok · #kitchenfinds', title:'The reveal IS the product.', body:'Viral OTOTO videos have fun reveals and twists. Products built to hide something until moment-of-use are inherently filmable and shareable.', chips:['reveal mechanic','hook in 2s'] },
+  { color:'var(--green)', dim:'rgba(52,211,153,.13)', src:'Pinterest · Cottagecore', title:'Nature & creature aesthetics at cultural peak.', body:'Cottagecore/goblincore at cultural peak — Pinterest searches for "mushroom kitchen decor" up 230% YoY, particularly for mushrooms, frogs, and woodland creatures.', chips:['mushroom +230%','cottagecore','first-mover window ↗'] },
+  { color:'var(--amber)', dim:'rgba(245,158,11,.13)', src:'Instagram · Home & Kitchen creators', title:'OTOTO earns organic reach as a lifestyle object.', body:'OTOTO products appear naturally in shelfies, gifting flat-lays, and "things on my counter" content — earned media without a campaign. Strategic creator seeding could multiply this significantly.', chips:['shelfie culture','earned media','creator gifting'] },
+  { color:'var(--blue)', dim:'rgba(107,142,240,.14)', src:'Amazon · Home & Kitchen', title:'Character-led kitchen tools are a fast-growing search category.', body:'"Funny kitchen gadgets" and "whimsical kitchen tools" show consistent YoY growth. OTOTO appears in most top-10 results — organic SEO dominance not yet leveraged for DTC.', chips:['amazon','category growth','DTC gap'] },
+  { color:'var(--coral)', dim:'rgba(240,112,96,.13)', src:'TikTok Shop behavior', title:'Content-to-checkout converts 3–4x for character products.', body:'Character-led kitchen products convert at 3–4x the rate of functional-only products when using the reveal mechanic. OTOTO\'s content fits naturally — TikTok Shop has opportunity for exploration.', chips:['TikTok Shop','3–4x conversion'] },
+  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', src:'Pinterest & TikTok · Oceancore', title:'Oceancore and underwater aesthetics are rising in home decor.', body:'#oceancore and #underwatercore searches on Pinterest grew ~180% YoY in 2025, driven by under-the-sea inspired home accessories, aquatic colors, and marine creature objects. A direct signal for the Crab Universe and a potential Under the Sea collection.', chips:['oceancore','#underwatercore','180% growth ↗'] },
+  { color:'var(--purple)', dim:'rgba(168,126,240,.13)', src:'Amazon & Google Trends · Home & Kitchen', title:'Pet-themed home items are a growing gifting category.', body:'Pet humanization is driving demand for character-driven home & kitchen tools — not functional pet items, but kitchen gadgets with cat and dog personalities. Amazon searches for "cat kitchen gifts" and "dog kitchen gadgets" have grown consistently alongside the broader pet accessories market (CAGR 5.4%, IMARC 2025). OTOTO\'s cat and dog ranges are well positioned in this space.', chips:['pet-themed home','cat/dog gifting','character demand'] },
 ];
 
 const ideas = [
   {
-    tag:'New Collection Idea',
+    tag:'Enchanted Garden Expansion',
     tagColor:'var(--purple)',
     name:'Woodland Creatures Universe',
-    desc:'A full character family set in an enchanted forest — hedgehog spoon rest, owl measuring cups, fox oven mitt, snail timer. Each piece inhabits the same world. Designed to be collected as a set, displayed as a scene.',
+    desc:'An expansion of the Enchanted Garden world — woodland creatures across different kitchen functions, each inhabiting the same forest world. Designed to be collected as a set and displayed as a scene.',
     img:'https://ototodesign.com/cdn/shop/files/Lily2_0e0d3c2b-c081-438e-a448-99945faaebf1.webp?v=1732193743&width=1445',
     signals:'Wishlist: "woodland creatures" · Pinterest cottagecore +230% · Portfolio gap in creature depth'
   },
   {
     tag:'Collection Expansion',
     tagColor:'var(--blue)',
-    name:'Nessie Spoon Rest',
-    desc:'A companion piece for the Nessie ladle — she finally has a home on the counter. Completes the "Nessie lives in your kitchen" narrative. Consumers already keep her out; a dedicated rest formalizes that behavior and drives set completion.',
-    img:'https://www.thejoyfulgourmet.com/wp-content/uploads/2024/04/Ototo-Jumbo-Nessie-Large-Ladle-Greenjpg-768x757.jpg',
-    signals:'Wishlist: "series completion" · "she needs a home" · Review: "stands on counter always"'
+    name:'Nessie Set Extensions',
+    desc:'Create counter support items that give Nessie a home on the counter — a spoon rest is just the start. The goal is formalizing the "Nessie lives in your kitchen" narrative and deepening the set beyond ladles.',
+    img:'https://ototodesign.com/cdn/shop/files/NessieFamily2.webp?v=1736417759&width=1445',
+    imgPos:'center center',
+    signals:'Wishlist: "series completion" · Counter display behavior · Set completion signal'
   },
   {
-    tag:'New Collection Idea',
+    tag:'Collection Expansion',
     tagColor:'var(--coral)',
-    name:'Fire & Heat Dragon Collection',
-    desc:'A lovable dragon character across heat-related kitchen tools — a dragon pot strainer with steam "breathing" through the spout, dragon oven mitts, chili flake shaker with fire tail. Warm tones, playful concept, strong reveal mechanic potential.',
-    img:'https://soyummy.com/wp-content/uploads/2024/09/813yvPZIWoL._AC_SX679_-1-e1726579647710.jpg',
-    signals:'TikTok reveal trend · "Cute dragon" search growth · Fire/heat category has no character player'
-  },
-  {
-    tag:'Beyond the Kitchen',
-    tagColor:'var(--green)',
-    name:'Enchanted Bathroom Collection',
-    desc:'The Fun Guy and Fungilicious consumer also wants character in the bathroom. A mushroom soap dispenser, frog toothbrush holder, snail soap dish — extending the Enchanted Garden world into a new room. Same buyer, new occasion.',
-    img:'https://ototodesign.com/cdn/shop/collections/167_Fungilisious_Ototo_Amazon.jpg?v=1759420133',
-    signals:'Wishlist: "room expansion" · Soapasaurus precedent · "I want this everywhere in my house"'
+    name:'Draco & Heat Collection',
+    desc:'Dracowave already exists and has strong character appeal. Expand the dragon universe into other heat-related kitchen tools — making Dracowave the anchor of a full character family.',
+    img:'https://ototodesign.com/cdn/shop/files/Dracowave2_f1830cb3-9334-434d-9485-9356d52a1ddb.webp?v=1732711505&width=1445',
+    signals:'Dracowave already launched · TikTok reveal potential · Heat category under-characterized'
   },
   {
     tag:'New Collection Idea',
-    tagColor:'var(--amber)',
-    name:'Capivara Kitchen Collection',
-    desc:'The internet\'s most beloved chill animal as a full kitchen range — a relaxed capybara spoon rest, a bathing capybara soap/sponge holder, citrus squeezer shaped like a capybara lounging in water. Calm, cozy, instantly viral aesthetic.',
-    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzf6b00VGYEFEk3gQ4sKKg-g_DPEIY4gEuSg&s',
-    signals:'Capybara is top trending cute animal globally · TikTok virality · "Chill" aesthetic demand rising'
+    tagColor:'var(--blue)',
+    name:'Under the Sea Collection',
+    desc:'Expand beyond the Crab Universe into a broader under-the-sea character world — ocean creatures across kitchen and bathroom. The crab range proves the concept works; a full sea universe would deepen collectibility and open new rooms.',
+    img:'https://ototodesign.com/cdn/shop/files/CrabTea2.webp?v=1762957898&width=1445',
+    signals:'Crab Universe set-buying proven · Oceancore +180% · Cross-room opportunity'
+  },
+  {
+    tag:'Collection Expansion',
+    tagColor:'var(--green)',
+    name:'Pet Collection',
+    desc:'An exclusive collection for pet lovers! Position existing cat and dog products as a curated family — bundle and present as a cohesive set for pet-owner gifting.',
+    img:'https://ototodesign.com/cdn/shop/files/Kitty-cut1.webp?v=1699973443&width=533',
+    signals:'Pet-themed home trend growing · Cat/dog gifting demand · Products already exist'
   },
   {
     tag:'Color Drop Strategy',
     tagColor:'var(--teal)',
     name:'Seasonal Nessie Color Drops',
-    desc:'Limited color variants of the original Nessie — Autumn Nessie (burnt orange), Midnight Nessie (deep navy), Spring Nessie (soft lilac). Same mold, new colorway, instant urgency. Creates a repeat purchase ritual for existing fans.',
+    desc:'Limited seasonal colorways of the original Nessie — same mold, new color, instant urgency. Creates a repeat purchase ritual for existing fans and drives gifting spikes throughout the year.',
     img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLtQv2wlYpE7jHtzIf5QwqnJhJ90B7iB0G8A&s',
     signals:'Wishlist: "I want the new colors" · Low tooling cost · Seasonal gifting peaks'
   },
@@ -772,11 +766,11 @@ function buildCollections() {
     <div class="col-card" id="colcard-${i}">
       <div class="col-body">
         <div class="col-name" style="color:${c.color}">${c.name}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:4px;margin-bottom:2px;font-style:italic">${c.summary}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;margin-bottom:6px;font-style:italic">${c.summary}</div>
+        <div class="col-chips" style="margin-bottom:6px">${(c.chips||[]).map(ch=>`<span class="chip ch-gray">${ch}</span>`).join('')}</div>
         <div class="col-card-body" id="colcard-body-${i}" style="display:none">
           <div class="col-insight" style="font-weight:400;margin-top:8px">${c.insight}</div>
           <div class="col-quote">${c.quote}</div>
-          <div class="col-chips">${(c.chips||[]).map(ch=>`<span class="chip ch-gray">${ch}</span>`).join('')}</div>
         </div>
       </div>
     </div>
@@ -810,7 +804,7 @@ function buildIdeas() {
   grid.innerHTML = ideas.map(idea => `
     <div class="idea-card">
       <div class="idea-card-inner">
-        <img class="idea-card-img" src="${idea.img}" onerror="this.style.background='var(--s4)'" alt="${idea.name}">
+        <img class="idea-card-img" src="${idea.img}" onerror="this.style.background='var(--s4)'" alt="${idea.name}" style="object-position:${idea.imgPos||'center top'}">
         <div class="idea-card-body">
           <div class="idea-tag" style="color:${idea.tagColor}">${idea.tag}</div>
           <div class="idea-name">${idea.name}</div>
@@ -853,7 +847,7 @@ function nfNav(id, dir) {
 (function buildPatternsGrid() {
   const el = document.getElementById('nf-patterns');
   if (!el) return;
-  el.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:12px';
+  el.style.cssText = 'display:grid;grid-template-columns:repeat(4,1fr);gap:12px';
   el.innerHTML = patterns.map(p => `
     <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:16px">
       <div style="width:28px;height:28px;border-radius:7px;background:${p.dim};display:flex;align-items:center;justify-content:center;margin-bottom:10px">
@@ -918,9 +912,9 @@ function buildTrendsList() {
       </div>
       <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${t.color};margin-bottom:4px">${t.src}</div>
       <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px">${t.title}</div>
+      <div class="chips" style="margin-bottom:6px">${(t.chips||[]).map(c=>`<span class="chip ch-gray">${c}</span>`).join('')}</div>
       <div class="tr-body" id="tr-body-${i}" style="display:none">
-        <div style="font-size:11px;color:#A0B0CC;line-height:1.6;margin-bottom:8px">${t.body}</div>
-        <div class="chips">${(t.chips||[]).map(c=>`<span class="chip ch-gray">${c}</span>`).join('')}</div>
+        <div style="font-size:11px;color:#A0B0CC;line-height:1.6">${t.body}</div>
       </div>
     </div>`).join('');
 }
@@ -1006,7 +1000,7 @@ function fillSug(text) {
   sendChat();
 }
 
-async function sendChat() {
+function sendChat() {
   const input = document.getElementById('chat-in');
   const btn = document.getElementById('chat-btn');
   const msgs = document.getElementById('chat-msgs');
@@ -1020,28 +1014,73 @@ async function sendChat() {
   msgs.innerHTML += `<div class="chat-msg thinking" id="thinking-msg">Thinking...</div>`;
   msgs.scrollTop = msgs.scrollHeight;
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: SYSTEM,
-        messages: [{ role: 'user', content: text }]
-      })
-    });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Something went wrong. Please try again.';
+  setTimeout(() => {
     document.getElementById('thinking-msg').remove();
-    msgs.innerHTML += `<div class="chat-msg ai">${reply.replace(/\n/g,'<br>')}</div>`;
-  } catch(e) {
-    document.getElementById('thinking-msg').remove();
-    msgs.innerHTML += `<div class="chat-msg thinking">Connection error. Please try again.</div>`;
-  }
+    const reply = getSimulatedReply(text);
+    msgs.innerHTML += `<div class="chat-msg ai">${reply}</div>`;
+    btn.disabled = false;
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 900);
+}
 
-  btn.disabled = false;
-  msgs.scrollTop = msgs.scrollHeight;
+function getSimulatedReply(text) {
+  const t = text.toLowerCase();
+  if (t.includes('enchanted') || t.includes('garden') || t.includes('mushroom') || t.includes('cottagecore')) {
+    return `<strong>Enchanted Garden NPD Ideas</strong><br><br>
+1. <strong>Hedgehog Spoon Rest</strong> — small hedgehog character cradling the spoon between quills. Natural reveal every time you cook. Extends the frog + mushroom world.<br><br>
+2. <strong>Snail Salt & Pepper Set</strong> — two snail shakers that sit together on the table. Natural pair, strong display value, collector trigger ("I need both").<br><br>
+3. <strong>Owl Measuring Cups</strong> — nesting owls in 4 sizes. Stack when stored, spread out when displayed. Cottagecore gifting dream.<br><br>
+<em>Signal strength: all three respond to the #1 wishlist for this collection — "more woodland creatures."</em>`;
+  }
+  if (t.includes('nessie') || t.includes('ladle') || t.includes('color') || t.includes('colour') || t.includes('drop')) {
+    return `<strong>Nessie Expansion Ideas</strong><br><br>
+1. <strong>Nessie Spoon Rest</strong> — gives Nessie a counter home. Formalizes the "Nessie family lives here" behavior consumers already have.<br><br>
+2. <strong>Seasonal Color Drops</strong> — Midnight Nessie (deep navy), Autumn Nessie (burnt orange). Same mold, new color, instant urgency. Low cost, high repeat purchase signal.<br><br>
+3. <strong>Nessie Family Pack</strong> — curated DTC bundle of 3–4 Nessie SKUs in gift packaging. Converts housewarming gift intent into higher AOV without new product development.<br><br>
+<em>The Nessie family phrase appears in 1 in 4 reviews — this is the highest set-completion signal in the portfolio.</em>`;
+  }
+  if (t.includes('spooky') || t.includes('halloween') || t.includes('agatha') || t.includes('vampire') || t.includes('witch')) {
+    return `<strong>Spooky Season NPD Ideas</strong><br><br>
+1. <strong>"Spooky Manor" Gift Bundle</strong> — Agatha + Gracula + Elizabat in narrative packaging. No new products, just a universe story. ~$45–55 bundle price.<br><br>
+2. <strong>Cauldron Spoon Rest</strong> — Agatha finally has a companion on the counter. Closes the #1 wishlist gap: "Agatha needs a friend."<br><br>
+3. <strong>Skull Cutting Board</strong> — extends spooky into everyday prep tools. Functional, dark humor, strong gifting signal for the "alternative kitchen" consumer.<br><br>
+<em>Agatha drives the highest character attachment in the entire portfolio — this universe has the most NPD headroom.</em>`;
+  }
+  if (t.includes('reveal') || t.includes('tiktok') || t.includes('viral') || t.includes('film')) {
+    return `<strong>Reveal Mechanic Product Ideas</strong><br><br>
+1. <strong>Dragon Steam Strainer</strong> — dragon curled around the pot rim, steam rises through its mouth when you pour. The reveal is the steam — designed for the exact TikTok moment.<br><br>
+2. <strong>Disappearing Ghost Spoon</strong> — ghost character that "fades" into the soup as it heats. Temperature-reactive color change creates a genuine reveal every use.<br><br>
+3. <strong>Surprise Egg Timer</strong> — timer shaped like a cracking egg, character "hatches" when time is up. The reveal is the moment of opening.<br><br>
+<em>Products built for the reveal moment convert 3–4x higher on TikTok Shop. Design the reveal first, the function second.</em>`;
+  }
+  if (t.includes('bathroom') || t.includes('room') || t.includes('soap') || t.includes('beyond')) {
+    return `<strong>Beyond the Kitchen Ideas</strong><br><br>
+1. <strong>Mushroom Soap Dispenser</strong> — the most requested cross-room extension. Fungilicious consumer would buy this immediately. Extends the Enchanted Garden world to the bathroom.<br><br>
+2. <strong>Frog Toothbrush Holder</strong> — small frog character holding toothbrushes between its hands. Character logic from HopTop, applied to the bathroom shelf.<br><br>
+3. <strong>Crab Bathroom Caddy</strong> — expands the Crab Universe from kitchen to shower/sink. Same consumer, new room, new collectible.<br><br>
+<em>Soapasaurus already proved the concept works. The opportunity is to architect this deliberately across existing characters.</em>`;
+  }
+  if (t.includes('crab') || t.includes('sea') || t.includes('ocean') || t.includes('under')) {
+    return `<strong>Under the Sea Collection Ideas</strong><br><br>
+1. <strong>Octopus Utensil Holder</strong> — eight arms holding different tools. Counter statement piece. Strong display value, strong reveal (arms extend out).<br><br>
+2. <strong>Clam Shell Soap Dish</strong> — extends crab/sea world into the bathroom. Opens to reveal a pearl character inside — built-in reveal mechanic.<br><br>
+3. <strong>Lobster Oven Mitts</strong> — bright red, oversized claws as the mitts. Strong visual gag, strong gifting signal, natural companion to the crab kitchen range.<br><br>
+<em>The Crab Universe already proves under-the-sea set-buying behavior. A broader sea universe would deepen collectibility significantly.</em>`;
+  }
+  if (t.includes('animal') || t.includes('cat') || t.includes('dog') || t.includes('pet')) {
+    return `<strong>Animal Collection Ideas</strong><br><br>
+1. <strong>Cat Spoon Rest</strong> — the missing anchor SKU that would crystallize "Cat Kitchen" as a named set. Consumers already buy Kitty-Cut, Scaredy Cat, Katie and Mary together.<br><br>
+2. <strong>Dog Ladle</strong> — companion to Hot-Dog Mitts. Builds the dog universe beyond oven mitts into daily cooking tools.<br><br>
+3. <strong>"Animal Kitchen Starter Set"</strong> — cat + dog items bundled as a gift-ready set. Cross-character bundle at a ~$40–50 price point.<br><br>
+<em>Four cat products are already being bought together without being marketed as a set — the consumer demand is there waiting to be activated.</em>`;
+  }
+  // default
+  return `<strong>OTOTO NPD Ideas</strong><br><br>
+Based on the consumer signals in this report, here are three directions worth exploring:<br><br>
+1. <strong>Expand existing universes</strong> — Nessie, Enchanted Garden, and Spooky Season all have consumers asking for more. Adding 1–2 companion SKUs per universe is the lowest-risk, highest-return move.<br><br>
+2. <strong>Design for the reveal moment</strong> — products where the character appears, transforms, or surprises at moment-of-use are inherently filmable. Build the TikTok moment into the brief from day one.<br><br>
+3. <strong>Cross-room extensions</strong> — the Enchanted Garden and Nessie consumer would buy character versions of bathroom products. Soapasaurus already proved it — the question is which characters to extend first.<br><br>
+<em>Try asking about a specific collection or direction for more targeted ideas.</em>`;
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
