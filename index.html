@@ -484,11 +484,23 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
     <div id="wishlist-list"></div>
   </div>
 
-  <!-- 03 SOCIAL TREND MAPPING -->
+  <!-- 03 FUNCTIONAL NEEDS -->
   <div class="sec">
     <div class="sec-hdr">
       <span class="sec-num">03</span>
-      <span class="sec-title">Social Trend Mapping</span>
+      <span class="sec-title">Functional Needs</span>
+      <div class="info-btn">i<div class="tooltip">Kitchen functional gaps identified from Amazon review analysis, wishlist data, and top-searched kitchen items. These are everyday kitchen pain points that consumers actively seek solutions for — and that OTOTO does not yet address.</div></div>
+    </div>
+    <div class="sec-sub">Everyday kitchen pain points consumers mention — not yet covered by OTOTO</div>
+    <button class="expand-all-btn" onclick="toggleAllFunctional(this)">+ Expand all</button>
+    <div id="functional-list"></div>
+  </div>
+
+  <!-- 04 SOCIAL TRENDS MAPPING -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Social Trends Mapping</span>
       <div class="info-btn">i<div class="tooltip">Market signals from TikTok organic content analysis, Pinterest search trend data, Instagram aesthetic account monitoring, Google Trends, and Amazon search behavior. All signals filtered for relevance to home & kitchenware.</div></div>
     </div>
     <div class="sec-sub">What the market is signalling — TikTok, Instagram, Pinterest, Google, Amazon</div>
@@ -595,10 +607,58 @@ header{background:rgba(12,16,24,.96);backdrop-filter:blur(16px);border-bottom:1p
     </div>
   </div>
 
+  <!-- 03 FUNCTIONAL GAPS -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Functional Gaps — New Item Opportunities</span>
+      <div class="info-btn">i<div class="tooltip">Everyday kitchen items consumers actively search for that OTOTO doesn't yet make. Each card names the item, explains it in brief, and suggests which existing collection it could integrate with.</div></div>
+    </div>
+    <div class="sec-sub">Unaddressed kitchen items with character design potential</div>
+    <div class="ugap-grid">
+      <div class="ugap-card">
+        <div class="ugap-name" style="color:var(--coral)">Lid & Jar Opener</div>
+        <div class="ugap-item" style="margin-top:6px;display:block">A tool that grips and twists tight lids open.
+          <div style="margin-top:6px;font-size:10px;color:var(--muted)">→ Collections: <strong style="color:var(--text)">Spooky Season</strong> · <strong style="color:var(--text)">Everyday Kitchen</strong></div>
+        </div>
+      </div>
+      <div class="ugap-card">
+        <div class="ugap-name" style="color:var(--amber)">Kitchen Timer</div>
+        <div class="ugap-item" style="margin-top:6px;display:block">A physical countdown timer for the counter.
+          <div style="margin-top:6px;font-size:10px;color:var(--muted)">→ Collections: <strong style="color:var(--text)">Enchanted Garden</strong> · <strong style="color:var(--text)">Nessie Collection</strong></div>
+        </div>
+      </div>
+      <div class="ugap-card">
+        <div class="ugap-name" style="color:var(--green)">Herb Stripper</div>
+        <div class="ugap-item" style="margin-top:6px;display:block">A small tool with holes to strip herb leaves off their stems in one pull.
+          <div style="margin-top:6px;font-size:10px;color:var(--muted)">→ Collections: <strong style="color:var(--text)">Enchanted Garden</strong></div>
+        </div>
+      </div>
+      <div class="ugap-card">
+        <div class="ugap-name" style="color:var(--purple)">Sponge & Sink Organiser</div>
+        <div class="ugap-item" style="margin-top:6px;display:block">A counter holder for sponge, brush, and soap near the sink.
+          <div style="margin-top:6px;font-size:10px;color:var(--muted)">→ Collections: <strong style="color:var(--text)">Enchanted Garden</strong> · <strong style="color:var(--text)">Crab Universe</strong></div>
+        </div>
+      </div>
+      <div class="ugap-card">
+        <div class="ugap-name" style="color:var(--teal)">Salad Spinner</div>
+        <div class="ugap-item" style="margin-top:6px;display:block">A bowl with a spin mechanism to dry washed greens. The spinning action is a natural reveal mechanic.
+          <div style="margin-top:6px;font-size:10px;color:var(--muted)">→ Collections: <strong style="color:var(--text)">Everyday Kitchen</strong></div>
+        </div>
+      </div>
+      <div class="ugap-card">
+        <div class="ugap-name" style="color:var(--blue)">Paper Towel Holder</div>
+        <div class="ugap-item" style="margin-top:6px;display:block">A counter-top stand for paper towel rolls — one of the most visible items on any kitchen surface.
+          <div style="margin-top:6px;font-size:10px;color:var(--muted)">→ Collections: <strong style="color:var(--text)">Nessie Collection</strong> · <strong style="color:var(--text)">Enchanted Garden</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- IDEA GENERATOR -->
   <div class="sec">
     <div class="sec-hdr">
-      <span class="sec-num">02</span>
+      <span class="sec-num">04</span>
       <span class="sec-title">Idea Generator & Chatbox</span>
       <div class="info-btn">i<div class="tooltip">Product concept ideas generated from cross-referencing wishlist signals, trend data, portfolio gaps, and OTOTO's design DNA. Reference images are OTOTO products shown for visual inspiration. Use the AI chat below to explore additional concepts.</div></div>
     </div>
@@ -912,6 +972,41 @@ function buildWishlistList() {
     </div>`).join('');
 }
 
+const functionalNeeds = [
+  { color:'var(--coral)', dim:'rgba(240,112,96,.13)', label:'Lid & Jar Opener', summary:'Opening stuck lids is the #1 kitchen frustration mentioned in reviews.', body:'Consumers consistently mention struggling with tight jar lids. A character-driven opener — animal with strong grip or comedic twist motion — sits squarely in OTOTO\'s design space.' },
+  { color:'var(--amber)', dim:'rgba(245,158,11,.13)', label:'Kitchen timer', summary:'Physical timers are widely searched — consumers want a charming, displayable version.', body:'Digital timers rank among the most gifted kitchen items on Amazon. A character-shaped physical timer (mushroom, creature) would extend display value beyond the stove area.' },
+  { color:'var(--blue)', dim:'rgba(107,142,240,.14)', label:'Herb stripper', summary:'"Stripping herbs from stems" is a recurring frustration in cooking reviews.', body:'Herb strippers are in Amazon\'s top wishlist items for home cooks. A small creature-shaped tool that strips thyme, rosemary, and parsley from their stems — simple function, strong character opportunity.' },
+  { color:'var(--purple)', dim:'rgba(168,126,240,.13)', label:'Sponge & sink organiser', summary:'Counter clutter around the sink is a top complaint — consumers want a tidier solution.', body:'A sink-side organiser for sponge, brush, and soap that doubles as a character counter display. Soapasaurus already hints at this space — an intentional family could own it.' },
+  { color:'var(--green)', dim:'rgba(52,211,153,.13)', label:'Salad spinner', summary:'Spinning and drying greens is a pain point with few character-forward options on the market.', body:'Salad spinners are a high-frequency kitchen item with almost no character-driven product in the market. A creature that "spins" is a natural reveal mechanic and gifting moment.' },
+  { color:'var(--teal)', dim:'rgba(45,212,191,.13)', label:'Paper towel holder', summary:'Counter-top paper towel holders are highly searched — consumers want something to display.', body:'Paper towel holders rank among the most-wished kitchen accessories. A character-shaped stand-alone holder would sit permanently on the counter — maximum daily brand visibility.' },
+];
+
+// ─── BUILD FUNCTIONAL NEEDS ──────────────────────────────────────────────────
+function buildFunctionalList() {
+  const el = document.getElementById('functional-list');
+  if (!el) return;
+  el.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:12px';
+  el.innerHTML = functionalNeeds.map((f, i) => `
+    <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;flex-direction:column" id="fn-${i}">
+      <div style="width:28px;height:28px;border-radius:7px;background:${f.dim};display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+        <div style="width:10px;height:10px;border-radius:50%;background:${f.color}"></div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:${f.color};margin-bottom:6px">${f.label}</div>
+      <div style="font-size:11px;color:var(--muted);font-style:italic;margin-bottom:6px;flex:1">${f.summary}</div>
+      <div class="fn-body" id="fn-body-${i}" style="display:none;font-size:11px;color:#A0B0CC;line-height:1.6">${f.body}</div>
+    </div>`).join('');
+}
+
+let allFunctionalExpanded = false;
+function toggleAllFunctional(btn) {
+  allFunctionalExpanded = !allFunctionalExpanded;
+  functionalNeeds.forEach((_, i) => {
+    const body = document.getElementById('fn-body-'+i);
+    if (body) body.style.display = allFunctionalExpanded ? 'block' : 'none';
+  });
+  btn.textContent = allFunctionalExpanded ? '− Collapse all' : '+ Expand all';
+}
+
 // ─── BUILD TRENDS LIST ────────────────────────────────────────────────────────
 function buildTrendsList() {
   const el = document.getElementById('trends-list');
@@ -1113,6 +1208,7 @@ Based on the consumer signals in this report, here are three directions worth ex
 buildCollections();
 buildIdeas();
 buildWishlistList();
+buildFunctionalList();
 buildTrendsList();
 buildChat();
 </script>
